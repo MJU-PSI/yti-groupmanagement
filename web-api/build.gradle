@@ -77,6 +77,12 @@ dependencies {
     compile "org.springframework.security:spring-security-config"
     compile "org.springframework.security:spring-security-web"
     compile "fi.vm.yti:yti-spring-security:0.2.0"
+    compile "org.keycloak:keycloak-spring-security-adapter:16.1.1"
+
+    compile "com.auth0:java-jwt:4.1.0"
+    compile "com.auth0:jwks-rsa:0.21.2"
+    compile "com.google.code.gson:gson:2.9.1"
+    compile "com.google.guava:guava:31.1-jre"
 
     compile "javax.xml.bind:jaxb-api:2.1"
     compile "io.jsonwebtoken:jjwt:0.9.1"

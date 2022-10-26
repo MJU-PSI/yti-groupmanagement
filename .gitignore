@@ -18,3 +18,5 @@ npm-debug.log
 /web-api/.classpath
 /frontend/.scannerwork
 /frontend/po/*.mo
+bin
+.vscode
