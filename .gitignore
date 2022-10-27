@@ -16,6 +16,7 @@ npm-debug.log
 /web-api/.project
 /web-api/.settings
 /web-api/.classpath
+/web-api/bin
 /frontend/.scannerwork
 /frontend/po/*.mo
 bin
