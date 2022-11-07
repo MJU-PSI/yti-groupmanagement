@@ -3,7 +3,7 @@ import { LocationService } from '../services/location.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationDetails } from '../entities/organization-details';
 import { EmailRole, UUID } from '../apina';
-import { ignoreModalClose, anyMatching, remove, ConfirmationModalService } from '@vrk-yti/yti-common-ui';
+import { ignoreModalClose, anyMatching, remove, ConfirmationModalService } from '@goraresult/yti-common-ui';
 import { SearchUserModalService } from './search-user-modal.component';
 import { ApiService } from '../services/api.service';
 import { DeleteConfirmationModalService } from './delete-confirmation-modal.component';

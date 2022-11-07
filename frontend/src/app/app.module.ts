@@ -18,7 +18,7 @@ import { SearchUserModalComponent, SearchUserModalService } from './components/s
 import { AuthorizationManager } from './services/authorization-manager.service';
 import { UserRequestsComponent } from './components/user-requests.component';
 import { ApiService } from './services/api.service';
-import { AUTHENTICATED_USER_ENDPOINT, LOCALIZER, YtiCommonModule, ConfirmationModalService, ModalService } from '@vrk-yti/yti-common-ui';
+import { AUTHENTICATED_USER_ENDPOINT, LOCALIZER, YtiCommonModule, ConfirmationModalService, ModalService } from '@goraresult/yti-common-ui';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { DeleteConfirmationModalComponent, DeleteConfirmationModalService } from './components/delete-confirmation-modal.component';
 import { OrganizationComponent } from './components/organization.component';
@@ -35,9 +35,9 @@ import { UserDetailsSubscriptionsComponent } from './components/user-details/use
 import enPo from 'raw-loader!po-loader?format=mf!../../po/en.po';
 import svPo from 'raw-loader!po-loader?format=mf!../../po/sv.po';
 import fiPo from 'raw-loader!po-loader?format=mf!../../po/fi.po';
-import fiCommonPo from 'raw-loader!po-loader?format=mf!../../node_modules/@vrk-yti/yti-common-ui/po/fi.po';
-import svCommonPo from 'raw-loader!po-loader?format=mf!../../node_modules/@vrk-yti/yti-common-ui/po/sv.po';
-import enCommonPo from 'raw-loader!po-loader?format=mf!../../node_modules/@vrk-yti/yti-common-ui/po/en.po';
+import fiCommonPo from 'raw-loader!po-loader?format=mf!../../node_modules/@goraresult/yti-common-ui/po/fi.po';
+import svCommonPo from 'raw-loader!po-loader?format=mf!../../node_modules/@goraresult/yti-common-ui/po/sv.po';
+import enCommonPo from 'raw-loader!po-loader?format=mf!../../node_modules/@goraresult/yti-common-ui/po/en.po';
 import { environment } from '../environments/environment';
 
 function removeEmptyValues(obj: {}) {

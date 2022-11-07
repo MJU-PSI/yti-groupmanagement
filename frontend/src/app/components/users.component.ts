@@ -3,7 +3,7 @@ import { OrganizationListItem, UUID } from '../apina';
 import { LocationService } from '../services/location.service';
 import { ApiService } from '../services/api.service';
 import { Observable, BehaviorSubject, Subject, combineLatest } from 'rxjs';
-import { Localizable, requireDefined, index, FilterOptions, UserService, ignoreModalClose } from '@vrk-yti/yti-common-ui';
+import { Localizable, requireDefined, index, FilterOptions, UserService, ignoreModalClose } from '@goraresult/yti-common-ui';
 import { LanguageService } from '../services/language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from '../entities/user';

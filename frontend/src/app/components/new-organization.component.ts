@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { LocationService } from '../services/location.service';
 import { SearchUserModalService } from './search-user-modal.component';
-import { ignoreModalClose } from '@vrk-yti/yti-common-ui';
+import { ignoreModalClose } from '@goraresult/yti-common-ui';
 import { User } from '../entities/user';
 import { OrganizationDetails } from '../entities/organization-details';
 import { ActivatedRoute, Router } from '@angular/router';

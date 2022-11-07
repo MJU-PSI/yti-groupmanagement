@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UUID } from '../apina';
-import { UserService, User, contains } from '@vrk-yti/yti-common-ui';
+import { UserService, User, contains } from '@goraresult/yti-common-ui';
 
 @Injectable()
 export class AuthorizationManager {

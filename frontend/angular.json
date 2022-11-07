@@ -24,7 +24,7 @@
               "src/assets",
               {
                "glob": "**/*",
-               "input": "node_modules/@vrk-yti/yti-common-ui/assets",
+               "input": "node_modules/@goraresult/yti-common-ui/assets",
                "output": "/assets"
               }
             ],

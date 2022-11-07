@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Language, LanguageService } from '../../services/language.service';
-import { UserService, LoginModalService } from '@vrk-yti/yti-common-ui';
+import { UserService, LoginModalService } from '@goraresult/yti-common-ui';
 import { ApiService } from '../../services/api.service';
 import {ConfigurationService} from "../../services/configuration.service";
 
@@ -43,7 +43,7 @@ import {ConfigurationService} from "../../services/configuration.service";
 
         <li class="nav-item dropdown" placement="bottom-right" ngbDropdown>
           <a class="dropdown-toggle nav-link btn btn-language" id="lang_selection_dropdown" ngbDropdownToggle>{{language.toUpperCase()}}</a>
-          <div ngbDropdownMenu>
+          <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
             <a *ngFor="let availableLanguage of availableLanguages"
                id="{{availableLanguage.code + '_available_language'}}"
                class="dropdown-item"
@@ -58,7 +58,7 @@ import {ConfigurationService} from "../../services/configuration.service";
           <a class="nav-link btn-menu" id="app_menu_dropdown" ngbDropdownToggle>
             <app-menu></app-menu>
           </a>
-          <div ngbDropdownMenu>
+          <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" id="navigation_log_out_link" *ngIf="isLoggedIn()" (click)="logOut()">
               <i class="fas fa-sign-out-alt"></i>
               <span translate>LOG OUT</span>
