@@ -22,6 +22,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/configuration",
               {
                "glob": "**/*",
                "input": "node_modules/@goraresult/yti-common-ui/assets",
@@ -46,12 +47,6 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
