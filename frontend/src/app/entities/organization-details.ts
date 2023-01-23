@@ -1,71 +1,63 @@
 import { Localizable } from '@goraresult/yti-common-ui';
-import { Organization, OrganizationListItem, UUID } from '../apina';
+import { Organization, OrganizationListItem, OrganizationTrans, UUID } from '../apina';
+import { availableLanguages } from '@goraresult/yti-common-ui';
 
 export class OrganizationDetails {
+  availableLanguages: any[];
 
   constructor(public url: string,
-              public nameFi: string,
-              public nameEn: string,
-              public nameSv: string,
-              public descriptionFi: string,
-              public descriptionEn: string,
-              public descriptionSv: string,
               public removed: boolean,
               public parentId: UUID,
-              public childOrganizations: OrganizationListItem[]) {
+    public childOrganizations: OrganizationListItem[],
+    public translations: OrganizationTrans[]) {
+    this.availableLanguages = availableLanguages;
   }
 
   static empty() {
-    return new OrganizationDetails('', '', '', '', '', '', '', false, '', []);
+    return new OrganizationDetails('', false, '', [], this.getEmptyTranslations());
+  }
+
+  static getEmptyTranslations(): OrganizationTrans[] {
+    let translations: OrganizationTrans[] = [];
+    availableLanguages.forEach(language => {
+      const orgTrans = new OrganizationTrans();
+      orgTrans.language = language.code;
+      translations.push(orgTrans);
+    });
+    return translations;
   }
 
   static emptyChildOrganization(parentId: UUID) {
-    return new OrganizationDetails('', '', '', '', '', '', '', false, parentId, []);
+    return new OrganizationDetails('', false, parentId, [], this.getEmptyTranslations());
   }
 
-  static fromOrganization(model: Organization, childOrganizations: OrganizationListItem[]) {
+  static fromOrganization(model: Organization, childOrganizations: OrganizationListItem[], translations: OrganizationTrans[]) {
     return new OrganizationDetails(
       model.url,
-      model.nameFi,
-      model.nameEn,
-      model.nameSv,
-      model.descriptionFi,
-      model.descriptionEn,
-      model.descriptionSv,
       model.removed,
       model.parentId,
-      childOrganizations
+      childOrganizations,
+      translations
     );
   }
 
   get name(): Localizable {
-    return {
-      'fi': this.nameFi,
-      'en': this.nameEn,
-      'sv': this.nameSv
-    };
+    return this.translations.reduce(
+      (obj, item) => Object.assign(obj, { [item.language]: item.name }), {});
   }
 
   get description(): Localizable {
-    return {
-      'fi': this.descriptionFi,
-      'en': this.descriptionEn,
-      'sv': this.descriptionSv
-    };
+    return this.translations.reduce(
+      (obj, item) => Object.assign(obj, { [item.language]: item.description }), {});
   }
 
   clone() {
     return new OrganizationDetails(
       this.url,
-      this.nameFi,
-      this.nameEn,
-      this.nameSv,
-      this.descriptionFi,
-      this.descriptionEn,
-      this.descriptionSv,
       this.removed,
       this.parentId,
-      this.childOrganizations
+      this.childOrganizations,
+      this.translations
     );
   }
 }

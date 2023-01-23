@@ -151,7 +151,7 @@ export class OrganizationComponent {
 
     organizationWithUsers$.subscribe(organizationWithUsers => {
 
-      const organizationDetails = OrganizationDetails.fromOrganization(organizationWithUsers.organization, organizationWithUsers.childOrganizations);
+      const organizationDetails = OrganizationDetails.fromOrganization(organizationWithUsers.organization, organizationWithUsers.childOrganizations, organizationWithUsers.translations);
       locationService.atOrganization(organizationDetails);
       this.organizationId = organizationWithUsers.organization.id;
       this.organization = organizationDetails;

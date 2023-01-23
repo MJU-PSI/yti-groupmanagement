@@ -1,7 +1,13 @@
 package fi.vm.yti.groupmanagement.model;
 
 import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
+
+import fi.vm.yti.groupmanagement.dao.PublicApiDao.OrganizationRow;
+
+import static java.util.Collections.unmodifiableMap;
 
 public class PublicApiOrganization {
 
@@ -13,17 +19,25 @@ public class PublicApiOrganization {
     private final UUID parentId;
 
     public PublicApiOrganization(final UUID uuid,
-                                 final Map<String, String> prefLabel,
-                                 final Map<String, String> description,
-                                 final String url,
-                                 final boolean removed,
-                                 final UUID parentId) {
+            final List<OrganizationRow> translations) {
+
         this.uuid = uuid;
-        this.prefLabel = prefLabel;
-        this.description = description;
-        this.url = url;
-        this.removed = removed;
-        this.parentId = parentId;
+
+        final HashMap<String, String> name = new HashMap<>(translations.size());
+        translations.forEach(translation -> {
+            name.put(translation.language, translation.name);
+        });
+        final HashMap<String, String> description = new HashMap<>(translations.size());
+        translations.forEach(translation -> {
+            name.put(translation.language, translation.description);
+        });
+
+        this.prefLabel = unmodifiableMap(name);
+        this.description = unmodifiableMap(description);
+        OrganizationRow data = translations.get(0);
+        this.url = data != null ? data.url : null;
+        this.removed = data != null ? data.removed : null;
+        this.parentId = data != null ? data.parentId : null;
     }
 
     public UUID getUuid() {

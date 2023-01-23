@@ -2,139 +2,20 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { OrganizationDetails } from '../entities/organization-details';
 import { AuthorizationManager } from '../services/authorization-manager.service';
 import { NgForm } from '@angular/forms';
+import { availableLanguages } from '@goraresult/yti-common-ui';
+import { OrganizationTrans } from '../apina';
+import { OrganizationTransWithName } from '../entities/organization-trans-with-name';
 
 @Component({
   selector: 'app-organization-details',
   exportAs: 'details',
-  template: `
-    <form #form="ngForm">
-      <div *ngIf="parentOrganization" class="row">
-        <div class="col-md-4">
-          <div class="form-group section">
-            <p class="form-control-static"><span translate>Main organization</span>: {{parentOrganization}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-
-          <h4 translate>In Finnish</h4>
-          <div class="form-group section">
-
-            <label for="name_fi" translate>Name</label>
-            <input *ngIf="editing"
-                   type="text"
-                   class="form-control"
-                   id="name_fi"
-                   name="name_fi"
-                   [(ngModel)]="organization.nameFi">
-            <p *ngIf="!editing" class="form-control-static">{{organization.nameFi}}</p>
-
-            <label for="description_fi" translate>Description</label>
-            <textarea *ngIf="editing"
-                      id="description_fi"
-                      name="description_fi"
-                      class="form-control"
-                      rows="4"
-                      [(ngModel)]="organization.descriptionFi"></textarea>
-            <p *ngIf="!editing" class="form-control-static">{{organization.descriptionFi}}</p>
-
-          </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-          <h4 translate>In English</h4>
-
-          <div class="form-group section">
-
-            <label for="name_en" translate>Name</label>
-            <input *ngIf="editing"
-                   type="text"
-                   class="form-control"
-                   id="name_en"
-                   name="name_en"
-                   [(ngModel)]="organization.nameEn">
-            <p *ngIf="!editing" class="form-control-static">{{organization.nameEn}}</p>
-
-            <label for="description_en" translate>Description</label>
-            <textarea *ngIf="editing"
-                      id="description_en"
-                      name="description_en"
-                      class="form-control"
-                      rows="4"
-                      [(ngModel)]="organization.descriptionEn"></textarea>
-            <p *ngIf="!editing" class="form-control-static">{{organization.descriptionEn}}</p>
-
-          </div>
-        </div>
-
-        <div class="col-md-4">
-
-          <h4 translate>In Swedish</h4>
-
-          <div class="form-group section">
-
-            <label for="name_sv" translate>Name</label>
-            <input *ngIf="editing"
-                   type="text"
-                   class="form-control"
-                   id="name_sv"
-                   name="name_sv"
-                   [(ngModel)]="organization.nameSv">
-            <p *ngIf="!editing" class="form-control-static">{{organization.nameSv}}</p>
-
-            <label for="description_sv" translate>Description</label>
-            <textarea *ngIf="editing"
-                      id="description_sv"
-                      name="description_sv"
-                      class="form-control"
-                      rows="4"
-                      [(ngModel)]="organization.descriptionSv"></textarea>
-            <p *ngIf="!editing" class="form-control-static">{{organization.descriptionSv}}</p>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <div class="form-group">
-            <label for="url_input">Url</label>
-            <input *ngIf="editing"
-                   type="text"
-                   class="form-control"
-                   id="url_input"
-                   name="url_input"
-                   [(ngModel)]="organization.url">
-            <p *ngIf="!editing" class="form-control-static">{{organization.url}}</p>
-          </div>
-        </div>
-        <div class="col-12">
-
-          <div class="form-check" *ngIf="editing">
-            <label class="form-check-label">
-              <input class="form-check-input"
-                     id="organization_removed_checkbox"
-                     type="checkbox"
-                     name="removed"
-                     [(ngModel)]="organization.removed" />
-              {{'Removed' | translate}}
-            </label>
-          </div>
-
-          <div *ngIf="!editing && organization.removed"
-               class="alert alert-danger d-inline-block"
-               role="alert"
-               translate>Removed</div>
-        </div>
-      </div>
-    </form>
-  `,
+  templateUrl: './organization-details.component.html',
   styleUrls: ['./organization-details.component.scss']
 })
 export class OrganizationDetailsComponent {
+
+  availableLanguages: any[];
+  languages: OrganizationTransWithName[];
 
   @Input()
   organization: OrganizationDetails;
@@ -148,6 +29,33 @@ export class OrganizationDetailsComponent {
   @ViewChild('form', { static: true }) form: NgForm;
 
   constructor(private authorizationManager: AuthorizationManager) {
+    this.availableLanguages = availableLanguages;
+    this.languages = [];
+
+  }
+
+  ngOnInit(): void {
+    this.languages = [];
+    this.availableLanguages.forEach(language => {
+      const ot = new OrganizationTransWithName();
+      ot.language = language.code;
+      ot.languageName = language.name;
+      if (language.code && this.organization && this.organization.translations) {
+        let translation = this.getTranslation(this.organization.translations, language.code);
+        if (translation) {
+          ot.name = translation.name;
+          ot.description = translation.description;
+        }
+      }
+      this.languages.push(ot);
+    });
+    this.organization.translations = this.languages;
+  }
+
+  private getTranslation(translations: OrganizationTrans[], language: string): any {
+    return translations.find(obj => {
+      return obj.language === language;
+    })
   }
 
   hasChanges() {

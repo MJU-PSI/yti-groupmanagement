@@ -2,5 +2,9 @@
   "/api": {
     "target": "http://localhost:9302",
     "secure": false
+  },
+  "/messaging-api": {
+    "target": "http://localhost:9801",
+    "secure": false
   }
 }

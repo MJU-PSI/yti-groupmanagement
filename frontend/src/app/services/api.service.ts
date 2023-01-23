@@ -6,6 +6,7 @@ import {
   FrontendEndpoint,
   Organization,
   OrganizationListItem,
+  OrganizationTrans,
   OrganizationWithUsers,
   TokenModel,
   UpdateOrganization,
@@ -60,14 +61,9 @@ export class ApiService {
     const model = new CreateOrganization();
 
     model.url = org.url;
-    model.nameEn = org.nameEn;
-    model.nameFi = org.nameFi;
-    model.nameSv = org.nameSv;
-    model.descriptionEn = org.descriptionEn;
-    model.descriptionFi = org.descriptionFi;
-    model.descriptionSv = org.descriptionSv;
     model.adminUserEmails = adminsEmails;
     model.parentId = org.parentId;
+    model.translations = org.translations;
 
     return this.endpoint.createOrganization(model);
   }
@@ -78,17 +74,22 @@ export class ApiService {
     const organization = new Organization();
     organization.id = id;
     organization.url = org.url;
-    organization.nameEn = org.nameEn;
-    organization.nameFi = org.nameFi;
-    organization.nameSv = org.nameSv;
-    organization.descriptionEn = org.descriptionEn;
-    organization.descriptionFi = org.descriptionFi;
-    organization.descriptionSv = org.descriptionSv;
     organization.removed = org.removed;
     organization.parentId = org.parentId;
     model.organization = organization;
     model.userRoles = userRoles;
-
+    const translations: OrganizationTrans[] = [];
+    if (org.translations) {
+      org.translations.forEach(t => {
+        const organizationTrans = new OrganizationTrans();
+        organizationTrans.organizationId = id;
+        organizationTrans.name = t.name;
+        organizationTrans.description = t.description;
+        organizationTrans.language = t.language;
+        translations.push(organizationTrans)
+      })
+      model.translations = translations;
+    }
 
     return this.endpoint.updateOrganization(model);
   }

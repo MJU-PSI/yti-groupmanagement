@@ -6,9 +6,7 @@ import java.util.UUID;
 public class UnsentRequestsForOrganization {
 
     public UUID id;
-    public String nameFi;
-    public String nameEn;
-    public String nameSv;
+    public String name;
     public List<String> adminEmails;
     public List<UUID> adminUsers;
     public UUID userId;

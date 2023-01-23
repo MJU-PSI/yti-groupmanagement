@@ -19,6 +19,7 @@ import fi.vm.yti.groupmanagement.model.CreateOrganization;
 import fi.vm.yti.groupmanagement.model.EmailRole;
 import fi.vm.yti.groupmanagement.model.Organization;
 import fi.vm.yti.groupmanagement.model.OrganizationListItem;
+import fi.vm.yti.groupmanagement.model.OrganizationTrans;
 import fi.vm.yti.groupmanagement.model.OrganizationWithUsers;
 import fi.vm.yti.groupmanagement.model.UpdateOrganization;
 import fi.vm.yti.groupmanagement.model.UserRequest;
@@ -76,14 +77,16 @@ public class FrontendService {
 
         org.id = id;
         org.url = createOrganizationModel.url;
-        org.nameEn = createOrganizationModel.nameEn;
-        org.nameFi = createOrganizationModel.nameFi;
-        org.nameSv = createOrganizationModel.nameSv;
-        org.descriptionEn = createOrganizationModel.descriptionEn;
-        org.descriptionFi = createOrganizationModel.descriptionFi;
-        org.descriptionSv = createOrganizationModel.descriptionSv;
         org.parentId = createOrganizationModel.parentId;
         frontendDao.createOrganization(org);
+
+        if (createOrganizationModel.translations != null && !createOrganizationModel.translations.isEmpty()) {
+            for (final OrganizationTrans translation : createOrganizationModel.translations) {
+                translation.organizationId = id;
+                frontendDao.createOrganizationTrans(translation);
+            }
+        }
+
         for (final String adminUserEmail : createOrganizationModel.adminUserEmails) {
             frontendDao.addUserToRoleInOrganization(adminUserEmail, "ADMIN", id);
         }
@@ -115,6 +118,18 @@ public class FrontendService {
         frontendDao.clearUserRoles(id);
         for (final EmailRole userRole : updateOrganization.userRoles) {
             frontendDao.addUserToRoleInOrganization(userRole.userEmail, userRole.role, id);
+        }
+
+        if (updateOrganization.translations != null && !updateOrganization.translations.isEmpty()) {
+            for (final OrganizationTrans translation : updateOrganization.translations) {
+                OrganizationTrans translationOld = frontendDao.getOrganizationTrans(translation.organizationId,
+                        translation.language);
+                if (translationOld != null) {
+                    frontendDao.updateOrganizationTrans(translation);
+                } else {
+                    frontendDao.createOrganizationTrans(translation);
+                }
+            }
         }
     }
 
@@ -196,12 +211,14 @@ public class FrontendService {
         final List<UserWithRoles> users = frontendDao.getOrganizationUsers(organizationId);
         final List<String> availableRoles = frontendDao.getAvailableRoles();
         final List<OrganizationListItem> childOrganizations = frontendDao.getChildOrganizations(organizationId);
+        final List<OrganizationTrans> translations = frontendDao.getTranslations(organizationId);
 
         final OrganizationWithUsers organizationWithUsers = new OrganizationWithUsers();
         organizationWithUsers.organization = organizationModel;
         organizationWithUsers.users = users;
         organizationWithUsers.availableRoles = availableRoles;
         organizationWithUsers.childOrganizations = childOrganizations;
+        organizationWithUsers.translations = translations;
 
         return organizationWithUsers;
     }
@@ -303,7 +320,7 @@ public class FrontendService {
         logger.info("User organization request accepted by user: " + user.getId() + " for user: " + userRequest.userId + " to organization: " + userRequest.organizationId);
         this.frontendDao.deleteUserRequest(requestId);
         this.frontendDao.addUserToRoleInOrganization(userRequest.userEmail, userRequest.roleName, userRequest.organizationId);
-        final String name = this.frontendDao.getOrganizationNameFI(userRequest.organizationId);
+        final String name = this.frontendDao.getOrganizationName(userRequest.organizationId);
         this.emailSenderService.sendEmailToUserOnAcceptance(userRequest.userEmail, userRequest.userId, name);
     }
 
@@ -334,9 +351,9 @@ public class FrontendService {
         }
     }
 
-    /** uncomment if you need to trigger email-sending manually
+    // /** uncomment if you need to trigger email-sending manually
      public void sendEmails(){
      this.emailSenderService.sendEmailsToAdmins();
      }
-     */
+     // */
 }
