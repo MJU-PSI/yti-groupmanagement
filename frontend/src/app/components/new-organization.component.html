@@ -1,0 +1,28 @@
+<div class="content-box">
+
+  <app-back-button (back)="back()"></app-back-button>
+
+  <div class="clearfix">
+    <h1 class="float-left" translate>New organization</h1>
+    <button type="button" id="save_organization_button" [disabled]="!isValid()" class="btn btn-action float-right"
+      (click)="saveOrganization()">{{'Save' | translate}}
+    </button>
+
+    <button type="submit" id="cancel_button" class="btn btn-link cancel float-right" (click)="back()">{{'Cancel' |
+      translate}}
+    </button>
+  </div>
+
+  <app-organization-details #details="details" id="organization_details" [organization]="organization"
+    [parentOrganization]="parentOrganization" [editing]="true"></app-organization-details>
+
+  <h3 class="mt-4" translate>Admin users</h3>
+
+  <p *ngIf="organizationAdminUsers.length === 0" translate>No admin users yet</p>
+  <ul *ngIf="organizationAdminUsers.length > 0">
+    <li *ngFor="let user of organizationAdminUsers" id="{{user.email + '_org_admin_user_item'}}">{{user.name}}</li>
+  </ul>
+
+  <button type="button" id="add_user_button" class="btn btn-action" (click)="addUser()" translate>Add user</button>
+
+</div>

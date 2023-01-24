@@ -1,0 +1,257 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2019-11-19 15:55+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Interoperability platform´s user right management"
+msgstr "Upravljanje uporabniških pravic interoperabilnostne platforme"
+
+msgid "Confirm remove"
+msgstr "Potrdite odstranitev"
+
+msgid "Are you sure that you want to remove?"
+msgstr "Ali ste prepričani, da želite odstraniti?"
+
+msgid "Yes"
+msgstr "Da"
+
+msgid "Cancel"
+msgstr "Prekliči"
+
+msgid "Copy value to clipboard"
+msgstr "Kopiraj vrednost v odložišče"
+
+msgid "Copied to clipboard"
+msgstr "Kopirano v odložišče"
+
+msgid "ORGANIZATIONS"
+msgstr "ORGANIZACIJE"
+
+msgid "USERS"
+msgstr "UPORABNIKI"
+
+msgid "Interoperability platform's user right management"
+msgstr "Upravljanje uporabniških pravic interoperabilnostne platforme"
+
+msgid "Impersonate user"
+msgstr "Lažno predstavljanje uporabnika"
+
+msgid "LOG IN"
+msgstr "PRIJAVI"
+
+msgid "LOG OUT"
+msgstr "ODJAVI"
+
+msgid "User details"
+msgstr "Podrobnosti o uporabniku"
+
+msgid "yhteentoimiva.suomi.fi"
+msgstr "yhteentoimiva.suomi.fi"
+
+msgid "Suomi.fi Reference Data"
+msgstr "Referenčni podatki"
+
+msgid "Suomi.fi Terminologies"
+msgstr "Terminologije"
+
+msgid "Suomi.fi Data Vocabularies"
+msgstr "Podatkovni besednjaki"
+
+msgid "Suomi.fi Comments"
+msgstr "Komentarji"
+
+msgid "Save"
+msgstr "Shrani"
+
+msgid "New organization"
+msgstr "Nova organizacija"
+
+msgid "Admin users"
+msgstr "Skrbniški uporabniki"
+
+msgid "No admin users yet"
+msgstr "Še ni skrbniških uporabnikov"
+
+msgid "Add user"
+msgstr "Dodaj uporabnika"
+
+msgid "Save failed"
+msgstr "Napaka pri shranjevanju"
+
+msgid "Removed"
+msgstr "Odstranjen"
+
+msgid "In Finnish"
+msgstr ""
+
+msgid "Name"
+msgstr "Ime"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "In English"
+msgstr ""
+
+msgid "In Swedish"
+msgstr ""
+
+msgid "Organization"
+msgstr "Organizacija"
+
+msgid "Edit organization"
+msgstr "Uredi organizacijo"
+
+msgid "Add child organization"
+msgstr "Dodajte podrejeno organizacijo"
+
+msgid "Child organizations"
+msgstr "Podrejene organizacije"
+
+msgid "Main organization"
+msgstr "Glavna organizacija"
+
+msgid "Users"
+msgstr "Uporabniki"
+
+msgid "No users yet"
+msgstr "Še ni uporabnikov"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Remove"
+msgstr "Odstrani"
+
+msgid "Changes saved"
+msgstr "Spremembe shranjene"
+
+msgid "Search organization"
+msgstr "Poišči organizacijo"
+
+msgid "Organizations"
+msgstr "Organizacije"
+
+msgid "Show removed organizations only"
+msgstr "Pokaži samo odstranjene organizacije"
+
+msgid "Add new organization"
+msgstr "Dodajte novo organizacijo"
+
+msgid "Search user"
+msgstr "Poišči uporabnika"
+
+msgid "Select user"
+msgstr "Izberi uporabnika"
+
+msgid "Access requests"
+msgstr "Zahtevek za dostop"
+
+msgid "Decline"
+msgstr "Zavrni"
+
+msgid "Accept"
+msgstr "Sprejmi"
+
+msgid "SuperUser"
+msgstr "Super uporabnik"
+
+msgid "Organizations and roles"
+msgstr "Organizacije in vloge"
+
+msgid "Unknown organization"
+msgstr "Neznana organizacija"
+
+msgid "API token"
+msgstr "API žeton"
+
+msgid "This user has a token already."
+msgstr "Ta uporabnik že ima žeton."
+
+msgid "Create API token"
+msgstr "Ustvari API žeton"
+
+msgid "Delete API token"
+msgstr "Izbriši API žeton"
+
+msgid ""
+"You have subscribed to be notified via email when the following resources "
+"change. To remove the subscription, click the icon next to the resource."
+msgstr "Naročili ste se na prejemanje obvestil po e-pošti, ko se spremenijo naslednji viri. Če želite odstraniti naročnino, kliknite ikono poleg vira."
+
+msgid "Email notifications"
+msgstr "E-poštna obvestila"
+
+msgid "Daily"
+msgstr "Dnevno"
+
+msgid "Code list resources"
+msgstr "Viri kodnega seznama"
+
+msgid "Terminology resources"
+msgstr "Terminološki viri"
+
+msgid "Datamodel resources"
+msgstr "Viri podatkovnega modela"
+
+msgid "Comments resources"
+msgstr "Viri komentarjev"
+
+msgid "INFORMATION"
+msgstr "INFORMACIJE"
+
+msgid "SUBSCRIPTIONS"
+msgstr "NAROČNINE"
+
+msgid "All roles"
+msgstr "Vse vloge"
+
+msgid "Front page"
+msgstr "Prva stran"
+
+msgid "DATA_MODEL_EDITOR"
+msgstr "Urejevalnik podatkovnih modelov"
+
+msgid "TERMINOLOGY_EDITOR"
+msgstr "Terminološki urednik"
+
+msgid "CODE_LIST_EDITOR"
+msgstr "Urejevalnik šifrantov"
+
+msgid "MEMBER"
+msgstr "Član"
+
+msgid "ADMIN"
+msgstr "Skrbnik"
+
+msgid "All organizations"
+msgstr "Vse organizacije"
+
+msgid ""
+"This user will be removed from organization after the changes are saved."
+msgstr "Ta uporabnik bo odstranjen iz organizacije, ko bodo spremembe shranjene."
+
+msgid "This user will be removed."
+msgstr "Ta uporabnik bo odstranjen."
+
+msgid "INFO_TEXT_TOKEN"
+msgstr "Ustvarjeni žeton je mogoče uporabiti pri dostopu API tako, da ga vnesete v glavo HTTP z imenom »Authorization« s predpono »Bearer«."
+
+msgid "INFO_TEXT_EMAIL_SUBSCRIPTIONS"
+msgstr "Ta funkcija izbere, ali so naročnine aktivne ali ne. Če počistite polje »Dnevno«, lahko onemogočite vse naročnine hkrati. Če obkljukate, se naročnine znova aktivirajo."
+
+msgid "REMOVE EMAIL SUBSCRIPTION TO RESOURCE?"
+msgstr "ODSTRANITE E-POŠTNO NAROČNINO NA VIR?"
+
+msgid "Error"
+msgstr "Napaka"

@@ -77,7 +77,7 @@ public class OrganizationTest {
         OrganizationWithUsers organization = frontendService.getOrganization(organizationId);
 
         assertEquals(user.getEmail(), organization.users.get(0).user.email);
-        assertEquals(org.nameFi, organization.organization.nameFi);
+        assertEquals(org.url, organization.organization.url);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class OrganizationTest {
         UUID organizationId = frontendService.createOrganization(org);
 
         OrganizationWithUsers organization = frontendService.getOrganization(organizationId);
-        organization.organization.descriptionFi = "New description";
+        organization.organization.url = "http://www.example1.com";
 
         UpdateOrganization updateOrganization = new UpdateOrganization();
         updateOrganization.organization = organization.organization;
@@ -97,7 +97,7 @@ public class OrganizationTest {
 
         OrganizationWithUsers organizationAfterUpdate = frontendService.getOrganization(organizationId);
 
-        assertEquals("New description", organizationAfterUpdate.organization.descriptionFi);
+        assertEquals("http://www.example1.com", organizationAfterUpdate.organization.url);
     }
 
     @Test
@@ -185,8 +185,6 @@ public class OrganizationTest {
 
     private static CreateOrganization getOrganization(String email) {
         CreateOrganization org = new CreateOrganization();
-        org.nameFi = "Test";
-        org.descriptionFi = "Test description";
         org.adminUserEmails = Arrays.asList(email);
         org.url = "http://www.example.com";
 

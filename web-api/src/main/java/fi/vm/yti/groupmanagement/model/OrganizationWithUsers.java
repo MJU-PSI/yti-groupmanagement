@@ -8,4 +8,5 @@ public class OrganizationWithUsers {
     public List<UserWithRoles> users;
     public List<String> availableRoles;
     public List<OrganizationListItem> childOrganizations;
+    public List<OrganizationTrans> translations;
 }

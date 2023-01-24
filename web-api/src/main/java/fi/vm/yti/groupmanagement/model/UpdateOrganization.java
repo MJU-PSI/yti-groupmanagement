@@ -6,4 +6,5 @@ public class UpdateOrganization {
 
     public Organization organization;
     public List<EmailRole> userRoles;
+    public List<OrganizationTrans> translations;
 }

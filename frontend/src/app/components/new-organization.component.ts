@@ -11,55 +11,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { OrganizationDetailsComponent } from './organization-details.component';
 import { flatMap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
-import { UserWithRolesInOrganizations } from '../apina';
+import { OrganizationTrans, UserWithRolesInOrganizations } from '../apina';
 
 @Component({
   selector: 'app-new-organization',
-  template: `
-    <div class="content-box">
-
-      <app-back-button (back)="back()"></app-back-button>
-<!-- //removed
-appNotification
-#notification="notification"
- -->
-      <div class="clearfix">
-        <h1 class="float-left" translate>New organization</h1>
-        <button type="button"
-                id="save_organization_button"
-                [disabled]="!isValid()"
-                class="btn btn-action float-right"
-
-                (click)="saveOrganization()">{{'Save' | translate}}
-        </button>
-
-        <button type="submit"
-                id="cancel_button"
-                class="btn btn-link cancel float-right"
-                (click)="back()">{{'Cancel' | translate}}
-        </button>
-      </div>
-
-      <app-organization-details #details="details"
-                                id="organization_details"
-                                [organization]="organization"
-                                [parentOrganization]="parentOrganization"
-                                [editing]="true"></app-organization-details>
-
-      <h3 class="mt-4" translate>Admin users</h3>
-
-      <p *ngIf="organizationAdminUsers.length === 0" translate>No admin users yet</p>
-      <ul *ngIf="organizationAdminUsers.length > 0">
-        <li *ngFor="let user of organizationAdminUsers" id="{{user.email + '_org_admin_user_item'}}">{{user.name}}</li>
-      </ul>
-
-      <button type="button"
-              id="add_user_button"
-              class="btn btn-action"
-              (click)="addUser()" translate>Add user</button>
-
-    </div>
-  `,
+  templateUrl: './new-organization.component.html',
   styleUrls: ['./new-organization.component.scss']
 })
 export class NewOrganizationComponent {
@@ -91,14 +47,9 @@ export class NewOrganizationComponent {
     parentOrganziation$.subscribe(organization => {
       this.organization = OrganizationDetails.emptyChildOrganization(organization.organization.id.toString());
 
-      if (translateService.currentLang === 'sv') {
-        this.parentOrganization = organization.organization.nameSv;
-      } else if (translateService.currentLang === 'en') {
-        this.parentOrganization = organization.organization.nameEn;
-      }
-
-      if (!this.parentOrganization || (this.parentOrganization && this.parentOrganization.trim().length === 0)) {
-        this.parentOrganization = organization.organization.nameFi;
+      let parentOrganizationCurrTrans: OrganizationTrans | undefined = this.getOrganizationCurrentTranslation(organization.translations);
+      if (parentOrganizationCurrTrans) {
+        this.parentOrganization = parentOrganizationCurrTrans.name;
       }
 
       const adminUsers = organization.users
@@ -113,6 +64,18 @@ export class NewOrganizationComponent {
           })
         this.organizationAdminUsers = adminUsers;
       });
+  }
+
+  private getOrganizationCurrentTranslation(translations: OrganizationTrans[]): OrganizationTrans | undefined {
+    if (translations && translations.length) {
+      let translation = translations.find(trans => trans.language === this.translateService.currentLang);
+      if (translation) {
+        return translation;
+      } else {
+        return translations[0];
+      }
+    }
+    return;
   }
 
   get organizationAdminEmails(): string[] {

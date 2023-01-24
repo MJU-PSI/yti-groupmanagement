@@ -76,7 +76,7 @@ public class EmailSenderService {
     @Transactional
     public void sendEmailsToAdmins() {
         for (final UnsentRequestsForOrganization request : emailSenderDao.getUnsentRequests()) {
-            sendAccessRequestEmail(request.adminEmails, request.requestCount, request.nameFi);
+            sendAccessRequestEmail(request.adminEmails, request.requestCount, request.name);
             emailSenderDao.markRequestAsSentForOrganization(request.id);
         }
     }
@@ -84,35 +84,37 @@ public class EmailSenderService {
     @Transactional
     public void sendEmailToUserOnAcceptance(final String userEmail,
                                             final UUID userId,
-                                            final String organizationNameFi) {
-        sendAccessRequestAcceptedEmail(userEmail, userId, organizationNameFi);
+            final String organizationName) {
+        sendAccessRequestAcceptedEmail(userEmail, userId, organizationName);
     }
 
     private void sendAccessRequestEmail(final List<String> adminEmails,
                                         final int requestCount,
-                                        final String organizationNameFi) {
+            final String organizationName) {
         try {
             final MimeMessage mail = javaMailSender.createMimeMessage();
             mail.addRecipients(BCC, adminEmails.stream().map(EmailSenderService::createAddress).toArray(Address[]::new));
-            final String message = "Sinulle on " + requestCount + " uutta käyttöoikeuspyyntöä organisaatioon '" + organizationNameFi + "':   " + environmentUrl;
+            final String message = "Sinulle on " + requestCount + " uutta käyttöoikeuspyyntöä organisaatioon '"
+                    + organizationName + "':   " + environmentUrl;
             mail.setFrom(createAddress(adminEmail));
             mail.setSender(createAddress(adminEmail));
             mail.setSubject("Sinulle on uusia käyttöoikeuspyyntöjä", "UTF-8");
             mail.setText(message, "UTF-8");
             javaMailSender.send(mail);
         } catch (final MessagingException e) {
-            logger.warn("sendAccessRequestEmail failed for organization: " + organizationNameFi);
+            logger.warn("sendAccessRequestEmail failed for organization: " + organizationName);
             throw new RuntimeException(e);
         }
     }
 
     private void sendAccessRequestAcceptedEmail(final String userEmail,
                                                 final UUID userId,
-                                                final String organizationNameFi) {
+            final String organizationName) {
         try {
             final MimeMessage mail = javaMailSender.createMimeMessage();
             mail.addRecipient(TO, createAddress(userEmail));
-            final String message = "Teille on myönnetty käyttöoikeus yhteentoimivuusalustan organisaatioon '" + organizationNameFi + "':   " + environmentUrl;
+            final String message = "Teille on myönnetty käyttöoikeus yhteentoimivuusalustan organisaatioon '"
+                    + organizationName + "':   " + environmentUrl;
             mail.setFrom(createAddress(adminEmail));
             mail.setSender(createAddress(adminEmail));
             mail.setSubject("Ilmoitus käyttöoikeuden hyväksymisestä", "UTF-8");
@@ -120,7 +122,7 @@ public class EmailSenderService {
             javaMailSender.send(mail);
             logger.info("Organization request accepted email sent to: " + userId);
         } catch (final MessagingException e) {
-            logger.warn("sendAccessRequestAcceptedEmail failed for organization: " + organizationNameFi);
+            logger.warn("sendAccessRequestAcceptedEmail failed for organization: " + organizationName);
             // Just consume exception if mail sending fails. But add log message
             //            throw new RuntimeException(e);
         }

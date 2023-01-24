@@ -20,6 +20,7 @@ public final class ApplicationProperties {
     private String env;
     private boolean fakeLoginAllowed;
     private boolean messagingEnabled;
+    private String defaultLanguage;
 
     public String getCodeListUrl() {
         return codeListUrl;
@@ -76,5 +77,13 @@ public final class ApplicationProperties {
 
     public void setMessagingEnabled(final boolean messagingEnabled) {
         this.messagingEnabled = messagingEnabled;
+    }
+
+    public String getDefaultLanguage() {
+        return defaultLanguage != null ? defaultLanguage : "en";
+    }
+
+    public void setDefaultLanguage(final String defaultLanguage) {
+        this.defaultLanguage = defaultLanguage;
     }
 }

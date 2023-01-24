@@ -2,6 +2,8 @@ package fi.vm.yti.groupmanagement.dao;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -9,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.dalesbred.Database;
 import org.dalesbred.query.QueryBuilder;
@@ -17,18 +21,22 @@ import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import fi.vm.yti.groupmanagement.config.ApplicationProperties;
 import fi.vm.yti.groupmanagement.model.Organization;
 import fi.vm.yti.groupmanagement.model.OrganizationListItem;
+import fi.vm.yti.groupmanagement.model.OrganizationTrans;
 import fi.vm.yti.groupmanagement.model.User;
 import fi.vm.yti.groupmanagement.model.UserRequest;
 import fi.vm.yti.groupmanagement.model.UserRequestModel;
 import fi.vm.yti.groupmanagement.model.UserRequestWithOrganization;
+import fi.vm.yti.groupmanagement.model.UserRequestWithOrganizationTrans;
 import fi.vm.yti.groupmanagement.model.UserWithRoles;
 import fi.vm.yti.groupmanagement.model.UserWithRolesInOrganizations;
 import fi.vm.yti.groupmanagement.service.impl.TokenServiceImpl;
 import static fi.vm.yti.groupmanagement.util.CollectionUtil.mapToList;
 import static java.time.LocalDateTime.now;
 import static java.util.stream.Collectors.*;
+import static org.dalesbred.query.SqlQuery.namedQuery;
 
 @Repository
 public class FrontendDao {
@@ -38,12 +46,15 @@ public class FrontendDao {
 
     private final Database db;
     private final TokenServiceImpl tokenService;
+    private final ApplicationProperties applicationProperties;
 
     @Autowired
     public FrontendDao(final Database db,
-                       final TokenServiceImpl tokenService) {
+            final TokenServiceImpl tokenService,
+            final ApplicationProperties applicationProperties) {
         this.db = db;
         this.tokenService = tokenService;
+        this.applicationProperties = applicationProperties;
     }
 
     public List<UserWithRolesInOrganizations> getUsersForAdminOrganizations(final String email) {
@@ -137,8 +148,11 @@ public class FrontendDao {
     }
 
     public @NotNull List<OrganizationListItem> getMainOrganizationListOpt(Boolean showRemoved) {
-        final List<OrganizationListItemRow> rows = db.findAll(OrganizationListItemRow.class, "SELECT id, name_en, name_fi, name_sv FROM organization WHERE removed = ? AND parent_id IS NULL ORDER BY name_fi", showRemoved);
-        return mapToList(rows, row -> new OrganizationListItem(row.id, row.nameFi, row.nameEn, row.nameSv));
+        final List<OrganizationTransListItemRow> rows = db.findAll(OrganizationTransListItemRow.class,
+                "SELECT o.id, t.language, t.name, t.description FROM organization o JOIN organization_trans t ON o.id = t.organization_id WHERE o.removed = ? AND o.parent_id IS NULL ORDER BY o.id, t.language",
+                showRemoved);
+
+        return organizationTransToList(rows);
     }
 
     public @NotNull List<OrganizationListItem> getOrganizationList() {
@@ -146,25 +160,52 @@ public class FrontendDao {
     }
 
     public @NotNull List<OrganizationListItem> getOrganizationList(boolean includeChildOrganizations) {
-        StringBuilder sql = new StringBuilder("SELECT id, name_en, name_fi, name_sv FROM organization");
+        StringBuilder sql = new StringBuilder(
+                "SELECT o.id, t.language, t.name, t.description FROM organization o JOIN organization_trans t ON o.id = t.organization_id");
 
         if (!includeChildOrganizations) {
-            sql.append(" WHERE parent_id IS NULL");
+            sql.append(" WHERE o.parent_id IS NULL");
         }
 
-        sql.append(" ORDER BY name_fi");
+        sql.append(" ORDER BY o.id, t.language");
 
-        final List<OrganizationListItemRow> rows = db.findAll(OrganizationListItemRow.class, sql.toString());
-        return mapToList(rows, row -> new OrganizationListItem(row.id, row.nameFi, row.nameEn, row.nameSv));
+        final List<OrganizationTransListItemRow> rows = db.findAll(OrganizationTransListItemRow.class, sql.toString());
+        return organizationTransToList(rows);
     }
 
     public @NotNull Organization getOrganization(UUID organizationId) {
-        return db.findUnique(Organization.class, "SELECT id, name_en, name_fi, name_sv, description_en, description_fi, description_sv, url, removed, parent_id FROM organization where id = ?", organizationId);
+        return db.findUnique(Organization.class, "SELECT id, url, removed, parent_id FROM organization where id = ?",
+                organizationId);
     }
 
     public @NotNull List<OrganizationListItem> getChildOrganizations(UUID parentOrganizationId) {
-        final List<OrganizationListItemRow> rows = db.findAll(OrganizationListItemRow.class, "SELECT id, name_en, name_fi, name_sv FROM organization where parent_id = ? ORDER BY name_fi ", parentOrganizationId);
-        return mapToList(rows, row -> new OrganizationListItem(row.id, row.nameFi, row.nameEn, row.nameSv));
+        final List<OrganizationTransListItemRow> rows = db.findAll(OrganizationTransListItemRow.class,
+                "SELECT o.id, t.language, t.name, t.description FROM organization o JOIN organization_trans t ON o.id = t.organization_id WHERE parent_id = ? ORDER BY o.id, t.language ",
+                parentOrganizationId);
+        return organizationTransToList(rows);
+    }
+
+    public @NotNull List<OrganizationTrans> getTranslations(UUID organizationId) {
+        final List<OrganizationTrans> rows = db.findAll(OrganizationTrans.class,
+                "SELECT organization_id, language, name, description FROM organization_trans where organization_id = ? ORDER BY language ",
+                organizationId);
+        return mapToList(rows,
+                row -> new OrganizationTrans(row.organizationId, row.language, row.name, row.description));
+    }
+
+    public @NotNull OrganizationTrans getOrganizationTrans(UUID organizationId, String language) {
+        Map<String, Object> values = new HashMap<>();
+        values.put("organizationId", organizationId);
+        values.put("language", language);
+        final List<OrganizationTrans> translations = db.findAll(OrganizationTrans.class,
+                namedQuery(
+                        "SELECT organization_id, language, name, description FROM organization_trans where organization_id = :organizationId AND language = :language",
+                        values));
+
+        if (translations.size() == 1) {
+            return translations.get(0);
+        }
+        return null;
     }
 
     public @NotNull List<UserWithRoles> getOrganizationUsers(UUID organizationId) {
@@ -199,14 +240,32 @@ public class FrontendDao {
 
     public void createOrganization(final Organization org) {
 
-        db.update("INSERT INTO organization (id, name_en, name_fi, name_sv, description_en, description_fi, description_sv, url, parent_id) VALUES (?,?,?,?,?,?,?,?,?)",
-            org.id, org.nameEn, org.nameFi, org.nameSv, org.descriptionEn, org.descriptionFi, org.descriptionSv, org.url, org.parentId);
+        db.update("INSERT INTO organization (id, url, parent_id) VALUES (?,?,?)",
+                org.id, org.url, org.parentId);
     }
 
     public void updateOrganization(final Organization org) {
 
-        db.update("UPDATE organization SET name_en=?, name_fi=?, name_sv=?, description_en=?, description_fi=?, description_sv=?, url=?, removed=?, modified=now() WHERE id = ?",
-            org.nameEn, org.nameFi, org.nameSv, org.descriptionEn, org.descriptionFi, org.descriptionSv, org.url, org.removed, org.id);
+        db.update("UPDATE organization SET url=?, removed=?, modified=now() WHERE id = ?",
+                org.url, org.removed, org.id);
+    }
+
+    public void clearOrganizationTrans(UUID id) {
+
+        db.update("DELETE FROM organization_trans ot where ot.organization_id = ?", id);
+        updateOrganizationModifiedStamp(id);
+    }
+
+    public void createOrganizationTrans(final OrganizationTrans orgTrans) {
+        db.update(
+                "INSERT INTO organization_trans (organization_id, language, name, description) VALUES (?,?,?,?)",
+                orgTrans.organizationId, orgTrans.language, orgTrans.name, orgTrans.description);
+    }
+
+    public void updateOrganizationTrans(final OrganizationTrans orgTrans) {
+
+        db.update("UPDATE organization_trans SET name=?, description=? WHERE organization_id = ? AND language = ?",
+                orgTrans.name, orgTrans.description, orgTrans.organizationId, orgTrans.language);
     }
 
     public void addUserToRoleInOrganization(final String userEmail,
@@ -227,8 +286,19 @@ public class FrontendDao {
         return db.findAll(String.class, "SELECT name FROM role");
     }
 
-    public String getOrganizationNameFI(final UUID id) {
-        return db.findUnique(String.class, "SELECT name_fi FROM organization WHERE id=?", id);
+    public String getOrganizationName(final UUID id) {
+        String name;
+        name = db.findUnique(String.class,
+                "SELECT name FROM organization_trans WHERE organization_id=? AND language = ?", id,
+                applicationProperties.getDefaultLanguage());
+        if (name == null) {
+            List<String> names = db.findAll(String.class, "SELECT name FROM organization_trans WHERE organization_id=?",
+                    id);
+            if (names != null && names.size() > 0) {
+                name = names.get(0);
+            }
+        }
+        return name;
     }
 
     public void addUserRequest(UserRequestModel userRequest) {
@@ -240,16 +310,20 @@ public class FrontendDao {
     public @NotNull List<UserRequestWithOrganization> getAllUserRequestsForOrganizations(@Nullable Set<UUID> organizations) {
 
         final QueryBuilder builder = new QueryBuilder(
-            "SELECT r.id, us.email as user_email, r.organization_id, r.role_name, us.firstName, us.lastName, org.name_fi, org.name_en, org.name_sv, r.sent \n" +
-                "FROM request r\n" +
-                "LEFT JOIN \"user\" us ON (us.id = r.user_id)\n" +
-                "LEFT JOIN organization org ON (org.id = r.organization_id)\n");
+                "SELECT r.id, us.email as user_email, r.organization_id, r.role_name, us.firstName, us.lastName, t.language, t.name, r.sent \n"
+                        +
+                        "FROM request r\n" +
+                        "LEFT JOIN \"user\" us ON (us.id = r.user_id)\n" +
+                        "LEFT JOIN organization org ON (org.id = r.organization_id)\n" +
+                        "JOIN organization_trans t ON org.id = t.organization_id\n");
 
         if (organizations != null) {
             builder.append("WHERE r.organization_id in (").appendPlaceholders(organizations).append(")");
         }
 
-        return db.findAll(UserRequestWithOrganization.class, builder.build());
+        final List<UserRequestWithOrganizationTrans> rows = db.findAll(UserRequestWithOrganizationTrans.class,
+                builder.build());
+        return userRequestWithOrganizationTransToList(rows);
     }
 
     public void deleteUserRequest(int requestId) {
@@ -309,11 +383,43 @@ public class FrontendDao {
         db.update("UPDATE organization SET modified=now() WHERE id = ?", orgId);
     }
 
-    public static class OrganizationListItemRow {
+    public static class OrganizationTransListItemRow {
 
         public UUID id;
-        public String nameFi;
-        public String nameEn;
-        public String nameSv;
+        public String language;
+        public String name;
+        public String description;
+
+        public UUID getId() {
+            return id;
+        }
+    }
+
+    public @NotNull List<OrganizationListItem> organizationTransToList(
+            @NotNull final List<OrganizationTransListItemRow> rows) {
+
+        final Map<UUID, List<OrganizationTransListItemRow>> organizationTrans = rows.stream()
+                .collect(Collectors.groupingBy(OrganizationTransListItemRow::getId));
+
+        final List<OrganizationListItem> organizationListItems = new ArrayList<OrganizationListItem>();
+        organizationTrans.forEach((k, v) -> organizationListItems.add(new OrganizationListItem(k, v)));
+        return organizationListItems;
+    }
+
+    public @NotNull List<UserRequestWithOrganization> userRequestWithOrganizationTransToList(
+            @NotNull final List<UserRequestWithOrganizationTrans> rows) {
+
+        Function<UserRequestWithOrganizationTrans, List<Object>> compositeKey = rec -> Arrays
+                .<Object>asList(rec.getId(), rec.getEmail(), rec.getOrganizationId(), rec.getRole(), rec.getFirstName(),
+                        rec.getLastName(), rec.getSent());
+
+        final Map<Object, List<UserRequestWithOrganizationTrans>> userRequestOrganizationTrans = rows.stream()
+                .collect(Collectors.groupingBy(compositeKey, Collectors.toList()));
+
+        final List<UserRequestWithOrganization> userRequestOrganizationListItems = new ArrayList<UserRequestWithOrganization>();
+        userRequestOrganizationTrans
+                .forEach((k, v) -> userRequestOrganizationListItems.add(new UserRequestWithOrganization(k, v)));
+
+        return userRequestOrganizationListItems;
     }
 }

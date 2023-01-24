@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.http.client.utils.DateUtils;
 import org.dalesbred.Database;
@@ -29,7 +30,6 @@ import fi.vm.yti.security.Role;
 import fi.vm.yti.security.YtiUser;
 import static fi.vm.yti.groupmanagement.util.CollectionUtil.requireSingleOrNone;
 import static java.util.Collections.emptyMap;
-import static java.util.Collections.unmodifiableMap;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.*;
 
@@ -254,34 +254,28 @@ public class PublicApiDao {
     }
 
     public List<PublicApiOrganization> rowsToOrganizations(final List<OrganizationRow> rows) {
-        return rows.stream().map(row -> {
 
-            final Map<String, String> prefLabel = new HashMap<>(3);
-            final Map<String, String> description = new HashMap<>(3);
+        final Map<UUID, List<OrganizationRow>> organizationTrans = rows.stream()
+                .collect(Collectors.groupingBy(OrganizationRow::getId));
 
-            prefLabel.put("fi", row.nameFi);
-            prefLabel.put("en", row.nameEn);
-            prefLabel.put("sv", row.nameSv);
-
-            description.put("fi", row.descriptionFi);
-            description.put("en", row.descriptionEn);
-            description.put("sv", row.descriptionSv);
-
-            return new PublicApiOrganization(row.id, unmodifiableMap(prefLabel), unmodifiableMap(description), row.url, row.removed, row.parentId);
-
-        }).collect(toList());
+        final List<PublicApiOrganization> organizationList = new ArrayList<PublicApiOrganization>();
+        organizationTrans.forEach((k, v) -> organizationList.add(new PublicApiOrganization(k, v)));
+        return organizationList;
     }
 
     public @NotNull List<PublicApiOrganization> getOrganizations() {
 
-        final List<OrganizationRow> rows = database.findAll(OrganizationRow.class, "select id, name_en, name_sv, name_fi, description_en, description_sv, description_fi, url, removed, parent_id from organization");
+        final List<OrganizationRow> rows = database.findAll(OrganizationRow.class,
+                "SELECT o.id, t.language, t.name, t.description, o.url, o.removed, o.parent_id FROM organization o JOIN organization_trans t ON o.id = t.organization_id");
 
         return rowsToOrganizations(rows);
     }
 
     public @NotNull List<PublicApiOrganization> getValidOrganizations() {
 
-        final List<OrganizationRow> rows = database.findAll(OrganizationRow.class, "select id, name_en, name_sv, name_fi, description_en, description_sv, description_fi, url, removed, parent_id from organization where removed = ?", false);
+        final List<OrganizationRow> rows = database.findAll(OrganizationRow.class,
+                "SELECT o.id, t.language, t.name, t.description, o.url, o.removed, o.parent_id FROM organization o JOIN organization_trans t ON o.id = t.organization_id WHERE o.removed = ?",
+                false);
 
         return rowsToOrganizations(rows);
     }
@@ -303,7 +297,9 @@ public class PublicApiDao {
             throw new IllegalArgumentException(e);
         }
 
-        final List<OrganizationRow> rows = database.findAll(OrganizationRow.class, "select id, name_en, name_sv, name_fi, description_en, description_sv, description_fi, url, removed, parent_id from organization where modified > ? AND removed = ?", date, !onlyValid);
+        final List<OrganizationRow> rows = database.findAll(OrganizationRow.class,
+                "SELECT o.id, t.language, t.name, t.description, o.url, o.removed, o.parent_id FROM organization o JOIN organization_trans t ON o.id = t.organization_id WHERE o.modified > ? AND o.removed = ?",
+                date, !onlyValid);
 
         return rowsToOrganizations(rows);
     }
@@ -334,10 +330,15 @@ public class PublicApiDao {
     }
 
     public PublicApiOrganization getParentOrganization(final UUID childOrganizationId) {
-        OrganizationRow parent = database.findUniqueOrNull(OrganizationRow.class, "select child.id, parent.id, " +
-                "parent.name_fi, parent.name_en, parent.name_sv, parent.description_en, parent.description_sv, parent.description_fi, " +
-                "parent.removed from organization child " +
-                "join organization parent on child.parent_id = parent.id where child.id = ?", childOrganizationId);
+        OrganizationRow parent = database.findUniqueOrNull(OrganizationRow.class,
+                "SELECT child.id, parent.id, " +
+                        "t.language, t.name, t.description, " +
+                        "parent.removed " +
+                        "FROM organization child " +
+                        "JOIN organization parent ON child.parent_id = parent.id " +
+                        "JOIN organization_trans t ON parent.id = t.organization_id " +
+                        "WHERE child.id = ?",
+                childOrganizationId);
 
         if (parent != null) {
             return rowsToOrganizations(Arrays.asList(parent)).get(0);
@@ -347,8 +348,9 @@ public class PublicApiDao {
     }
 
     public List<PublicApiOrganization> getChildOrganizations(UUID parentId) {
-        List<OrganizationRow> children = database.findAll(OrganizationRow.class, "select id, name_en, name_sv, name_fi, description_en, description_sv, description_fi, " +
-                "url, removed, parent_id from organization where parent_id=?", parentId);
+        List<OrganizationRow> children = database.findAll(OrganizationRow.class,
+                "SELECT o.id, t.language, t.name, t.description, o.url, o.removed, o.parent_id FROM organization o JOIN organization_trans t ON o.id = t.organization_id WHERE o.parent_id=?",
+                parentId);
 
         return rowsToOrganizations(children);
     }
@@ -356,14 +358,15 @@ public class PublicApiDao {
     public static final class OrganizationRow {
 
         public UUID id;
+        public String language;
+        public String name;
+        public String description;
         public String url;
-        public String nameEn;
-        public String nameFi;
-        public String nameSv;
-        public String descriptionEn;
-        public String descriptionFi;
-        public String descriptionSv;
         public Boolean removed;
         public UUID parentId;
+
+        public UUID getId() {
+            return id;
+        }
     }
 }

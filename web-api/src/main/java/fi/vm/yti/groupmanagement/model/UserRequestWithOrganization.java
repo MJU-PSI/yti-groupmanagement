@@ -1,6 +1,7 @@
 package fi.vm.yti.groupmanagement.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class UserRequestWithOrganization {
@@ -14,28 +15,22 @@ public class UserRequestWithOrganization {
     public String lastName;
     public boolean sent = false;
 
-    public UserRequestWithOrganization(final Integer id,
-                                       final String userEmail,
-                                       final UUID organizationId,
-                                       final String roleName,
-                                       final String firstName,
-                                       final String lastName,
-                                       final String orgNameFi,
-                                       final String orgNameEn,
-                                       final String orgNameSv,
-                                       final Boolean sent) {
+    public UserRequestWithOrganization(final Object obj,
+            final List<UserRequestWithOrganizationTrans> translations) {
 
-        organizationName.put("fi", orgNameFi);
-        organizationName.put("en", orgNameEn);
-        organizationName.put("sv", orgNameSv);
+        UserRequestWithOrganizationTrans data = translations.get(0);
 
-        this.id = id;
-        this.email = userEmail;
-        this.organizationId = organizationId;
-        this.role = roleName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.sent = sent;
+        translations.forEach(translation -> {
+            this.organizationName.put(translation.language, translation.name);
+        });
+
+        this.id = data.id;
+        this.email = data.email;
+        this.organizationId = data.organizationId;
+        this.role = data.role;
+        this.firstName = data.firstName;
+        this.lastName = data.lastName;
+        this.sent = data.sent;
     }
 
     public String getFullName() {
