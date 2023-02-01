@@ -29,7 +29,7 @@ public class PublicApiOrganization {
         });
         final HashMap<String, String> description = new HashMap<>(translations.size());
         translations.forEach(translation -> {
-            name.put(translation.language, translation.description);
+            description.put(translation.language, translation.description);
         });
 
         this.prefLabel = unmodifiableMap(name);
