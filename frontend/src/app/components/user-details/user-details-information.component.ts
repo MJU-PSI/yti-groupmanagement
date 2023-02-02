@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Role, UserService, index, comparingLocalizable } from '@goraresult/yti-common-ui';
+import { Role, UserService, index, comparingLocalizable } from '@mju-psi/yti-common-ui';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LanguageService } from '../../services/language.service';

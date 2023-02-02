@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthorizationManager } from '../services/authorization-manager.service';
 import { ApiService } from '../services/api.service';
 import { LanguageService } from '../services/language.service';
-import { comparingLocalizable, matches } from '@goraresult/yti-common-ui';
+import { comparingLocalizable, matches } from '@mju-psi/yti-common-ui';
 import { BehaviorSubject, Subscription, combineLatest } from 'rxjs';
 
 @Component({

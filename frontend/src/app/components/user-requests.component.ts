@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { UserRequestWithOrganization } from '../apina';
-import { remove, comparingPrimitive, ErrorModalService } from '@goraresult/yti-common-ui';
+import { remove, comparingPrimitive, ErrorModalService } from '@mju-psi/yti-common-ui';
 
 @Component({
   selector: 'app-user-requests',

@@ -2,7 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { OrganizationDetails } from '../entities/organization-details';
 import { AuthorizationManager } from '../services/authorization-manager.service';
 import { NgForm } from '@angular/forms';
-import { availableLanguages } from '@goraresult/yti-common-ui';
+import { availableLanguages } from '@mju-psi/yti-common-ui';
 import { OrganizationTrans } from '../apina';
 import { OrganizationTransWithName } from '../entities/organization-trans-with-name';
 

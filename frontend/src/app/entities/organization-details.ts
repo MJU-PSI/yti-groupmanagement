@@ -1,6 +1,6 @@
-import { Localizable } from '@goraresult/yti-common-ui';
+import { Localizable } from '@mju-psi/yti-common-ui';
 import { Organization, OrganizationListItem, OrganizationTrans, UUID } from '../apina';
-import { availableLanguages } from '@goraresult/yti-common-ui';
+import { availableLanguages } from '@mju-psi/yti-common-ui';
 
 export class OrganizationDetails {
   availableLanguages: any[];
