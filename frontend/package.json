@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "buildProduction": "ng build --configuration production",
+    "buildProduction": "ng build --configuration production --base-href /groupmanagement-app/",
     "create-translations": "node -- node_modules/@biesbjerg/ngx-translate-extract/bin/cli.js --input ./src/app --output ./po/template.pot --format=pot --clean"
   },
   "private": true,
@@ -25,7 +25,7 @@
     "@angular/platform-browser-dynamic": "^12.2.16",
     "@angular/router": "^12.2.16",
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
-    "@mju-psi/yti-common-ui": "0.0.3",
+    "@mju-psi/yti-common-ui": "^0.0.3",
     "@ng-bootstrap/ng-bootstrap": "10.0.0",
     "@ngx-translate/core": "^13.0.0",
     "bootstrap": "4.5.0",
