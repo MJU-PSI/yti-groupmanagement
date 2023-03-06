@@ -1,4 +1,4 @@
 #!/bin/bash
 
-./gradlew assemble
+./gradlew -PbuildOption="buildProduction" assemble
 docker build -t yti-groupmanagement .
