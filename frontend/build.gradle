@@ -22,10 +22,12 @@ task installDependencies(dependsOn: yarnInstall) {
   description = 'Install all frontend dependencies'
 }
 
+
+ext.buildOption = project.hasProperty('buildOption') ? project.getProperty('buildOption') : 'buildProduction'
 task buildProduction(type: YarnTask, dependsOn: installDependencies) {
     inputs.dir 'src'
     inputs.files 'package.json', 'yarn.lock', 'angular-cli.json'
-    outputs.dir 'dist'
+    println buildOption
     args = ['run', buildOption]
 }
 
