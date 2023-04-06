@@ -27,6 +27,7 @@ ext.buildOption = project.hasProperty('buildOption') ? project.getProperty('buil
 task buildProduction(type: YarnTask, dependsOn: installDependencies) {
     inputs.dir 'src'
     inputs.files 'package.json', 'yarn.lock', 'angular-cli.json'
+    outputs.dir 'dist'
     args = ['run', buildOption]
 }
 
