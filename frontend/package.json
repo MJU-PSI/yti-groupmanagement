@@ -11,7 +11,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "buildProduction": "ng build --configuration production",
-    "buildProductionTraefik": "ng build --configuration production --base-href /groupmanagement-app/",
     "create-translations": "node -- node_modules/@biesbjerg/ngx-translate-extract/bin/cli.js --input ./src/app --output ./po/template.pot --format=pot --clean"
   },
   "private": true,
