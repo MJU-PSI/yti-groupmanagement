@@ -149,7 +149,8 @@ const appRoutes: Routes = [
     runGuardsAndResolvers: 'always'
   },
   { path: 'userDetails', component: UserDetailsComponent },
-  { path: 'information', component: InformationAboutServiceComponent }
+  { path: 'information', component: InformationAboutServiceComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -183,7 +184,7 @@ const appRoutes: Routes = [
     ApinaModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(appRoutes),
     NgbModule,
     TranslateModule.forRoot({
       loader: {
