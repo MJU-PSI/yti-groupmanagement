@@ -55,19 +55,16 @@ msgstr ""
 msgid "User details"
 msgstr ""
 
-msgid "yhteentoimiva.suomi.fi"
+msgid "Reference Data"
 msgstr ""
 
-msgid "Suomi.fi Reference Data"
+msgid "Terminologies"
 msgstr ""
 
-msgid "Suomi.fi Terminologies"
+msgid "Data Vocabularies"
 msgstr ""
 
-msgid "Suomi.fi Data Vocabularies"
-msgstr ""
-
-msgid "Suomi.fi Comments"
+msgid "Comments"
 msgstr ""
 
 msgid "Save"

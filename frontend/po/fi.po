@@ -55,20 +55,17 @@ msgstr "KIRJAUDU ULOS"
 msgid "User details"
 msgstr "Käyttäjätiedot"
 
-msgid "yhteentoimiva.suomi.fi"
-msgstr "yhteentoimiva.suomi.fi"
+msgid "Reference Data"
+msgstr "Koodistot"
 
-msgid "Suomi.fi Reference Data"
-msgstr "Suomi.fi-koodistot"
+msgid "Terminologies"
+msgstr "Sanastot"
 
-msgid "Suomi.fi Terminologies"
-msgstr "Suomi.fi-sanastot"
+msgid "Data Vocabularies"
+msgstr "Tietomallit"
 
-msgid "Suomi.fi Data Vocabularies"
-msgstr "Suomi.fi-tietomallit"
-
-msgid "Suomi.fi Comments"
-msgstr "Suomi.fi-kommentit"
+msgid "Comments"
+msgstr "Kommentit"
 
 msgid "Save"
 msgstr "Tallenna"

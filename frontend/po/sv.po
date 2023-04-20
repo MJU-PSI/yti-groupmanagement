@@ -55,20 +55,17 @@ msgstr "LOGGA UT"
 msgid "User details"
 msgstr "Användaruppgifter"
 
-msgid "yhteentoimiva.suomi.fi"
-msgstr "yhteentoimiva.suomi.fi"
+msgid "Reference Data"
+msgstr "Kodlistor"
 
-msgid "Suomi.fi Reference Data"
-msgstr "Suomi.fi-kodlistor"
+msgid "Terminologies"
+msgstr "Ordlistor"
 
-msgid "Suomi.fi Terminologies"
-msgstr "Suomi.fi-ordlistor"
+msgid "Data Vocabularies"
+msgstr "Informationsmodeller"
 
-msgid "Suomi.fi Data Vocabularies"
-msgstr "Suomi.fi-informationsmodeller"
-
-msgid "Suomi.fi Comments"
-msgstr "Suomi.fi-kommentarer"
+msgid "Comments"
+msgstr "Kommentarer"
 
 msgid "Save"
 msgstr "Spara"
