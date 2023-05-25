@@ -5,25 +5,13 @@ msgstr ""
 "PO-Revision-Date: 2019-11-19 15:55+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: en\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.2.4\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "Interoperability platform´s user right management"
-msgstr "Upravljanje uporabniških pravic interoperabilnostne platforme"
-
-msgid "Confirm remove"
-msgstr "Potrdite odstranitev"
-
-msgid "Are you sure that you want to remove?"
-msgstr "Ali ste prepričani, da želite odstraniti?"
-
-msgid "Yes"
-msgstr "Da"
 
 msgid "Cancel"
 msgstr "Prekliči"
@@ -33,6 +21,18 @@ msgstr "Kopiraj vrednost v odložišče"
 
 msgid "Copied to clipboard"
 msgstr "Kopirano v odložišče"
+
+msgid "Yes"
+msgstr "ja"
+
+msgid "Interoperability platform´s user right management"
+msgstr "Upravljanje uporabniških pravic interoperabilnostne platforme"
+
+msgid "Confirm remove"
+msgstr "Potrdite odstranitev"
+
+msgid "Are you sure that you want to remove?"
+msgstr "Ali ste prepričani, da želite odstraniti?"
 
 msgid "ORGANIZATIONS"
 msgstr "ORGANIZACIJE"
@@ -47,10 +47,10 @@ msgid "Impersonate user"
 msgstr "Lažno predstavljanje uporabnika"
 
 msgid "LOG IN"
-msgstr "PRIJAVI"
+msgstr "VPIŠI SE"
 
 msgid "LOG OUT"
-msgstr "ODJAVI"
+msgstr "ODJAVA"
 
 msgid "User details"
 msgstr "Podrobnosti o uporabniku"
@@ -83,13 +83,13 @@ msgid "Add user"
 msgstr "Dodaj uporabnika"
 
 msgid "Save failed"
-msgstr "Napaka pri shranjevanju"
+msgstr "Shranjevanje ni uspelo"
 
 msgid "Removed"
-msgstr "Odstranjen"
+msgstr "Odstranjeno"
 
 msgid "In Finnish"
-msgstr ""
+msgstr "V finščini"
 
 msgid "Name"
 msgstr "Ime"
@@ -98,10 +98,10 @@ msgid "Description"
 msgstr "Opis"
 
 msgid "In English"
-msgstr ""
+msgstr "V angleščini"
 
 msgid "In Swedish"
-msgstr ""
+msgstr "V švedščini"
 
 msgid "Organization"
 msgstr "Organizacija"
@@ -113,7 +113,7 @@ msgid "Add child organization"
 msgstr "Dodajte podrejeno organizacijo"
 
 msgid "Child organizations"
-msgstr "Podrejene organizacije"
+msgstr "Otroške organizacije"
 
 msgid "Main organization"
 msgstr "Glavna organizacija"
@@ -125,7 +125,7 @@ msgid "No users yet"
 msgstr "Še ni uporabnikov"
 
 msgid "Email"
-msgstr "Email"
+msgstr "E-naslov"
 
 msgid "Remove"
 msgstr "Odstrani"
@@ -134,7 +134,7 @@ msgid "Changes saved"
 msgstr "Spremembe shranjene"
 
 msgid "Search organization"
-msgstr "Poišči organizacijo"
+msgstr "Organizacija iskanja"
 
 msgid "Organizations"
 msgstr "Organizacije"
@@ -146,13 +146,13 @@ msgid "Add new organization"
 msgstr "Dodajte novo organizacijo"
 
 msgid "Search user"
-msgstr "Poišči uporabnika"
+msgstr "Išči uporabnika"
 
 msgid "Select user"
-msgstr "Izberi uporabnika"
+msgstr "Izberite uporabnika"
 
 msgid "Access requests"
-msgstr "Zahtevek za dostop"
+msgstr "Zahteve za dostop"
 
 msgid "Decline"
 msgstr "Zavrni"
@@ -161,7 +161,7 @@ msgid "Accept"
 msgstr "Sprejmi"
 
 msgid "SuperUser"
-msgstr "Super uporabnik"
+msgstr "SuperUser"
 
 msgid "Organizations and roles"
 msgstr "Organizacije in vloge"
@@ -176,14 +176,12 @@ msgid "This user has a token already."
 msgstr "Ta uporabnik že ima žeton."
 
 msgid "Create API token"
-msgstr "Ustvari API žeton"
+msgstr "Ustvari žeton API"
 
 msgid "Delete API token"
-msgstr "Izbriši API žeton"
+msgstr "Izbriši žeton API"
 
-msgid ""
-"You have subscribed to be notified via email when the following resources "
-"change. To remove the subscription, click the icon next to the resource."
+msgid "You have subscribed to be notified via email when the following resources change. To remove the subscription, click the icon next to the resource."
 msgstr "Naročili ste se na prejemanje obvestil po e-pošti, ko se spremenijo naslednji viri. Če želite odstraniti naročnino, kliknite ikono poleg vira."
 
 msgid "Email notifications"
@@ -214,7 +212,7 @@ msgid "All roles"
 msgstr "Vse vloge"
 
 msgid "Front page"
-msgstr "Prva stran"
+msgstr "Prednja stran"
 
 msgid "DATA_MODEL_EDITOR"
 msgstr "Urejevalnik podatkovnih modelov"
@@ -226,26 +224,25 @@ msgid "CODE_LIST_EDITOR"
 msgstr "Urejevalnik šifrantov"
 
 msgid "MEMBER"
-msgstr "Član"
+msgstr "član"
 
 msgid "ADMIN"
-msgstr "Skrbnik"
+msgstr "skrbnik"
 
 msgid "All organizations"
 msgstr "Vse organizacije"
 
-msgid ""
-"This user will be removed from organization after the changes are saved."
+msgid "This user will be removed from organization after the changes are saved."
 msgstr "Ta uporabnik bo odstranjen iz organizacije, ko bodo spremembe shranjene."
 
 msgid "This user will be removed."
 msgstr "Ta uporabnik bo odstranjen."
 
 msgid "INFO_TEXT_TOKEN"
-msgstr "Ustvarjeni žeton je mogoče uporabiti pri dostopu API tako, da ga vnesete v glavo HTTP z imenom »Authorization« s predpono »Bearer«."
+msgstr "Ustvarjeni žeton je mogoče uporabiti pri dostopu API-ja tako, da ga vnesete v glavo HTTP z imenom »Authorization« s predpono »Bearer«."
 
 msgid "INFO_TEXT_EMAIL_SUBSCRIPTIONS"
-msgstr "Ta funkcija izbere, ali so naročnine aktivne ali ne. Če počistite polje »Dnevno«, lahko onemogočite vse naročnine hkrati. Če obkljukate, se naročnine znova aktivirajo."
+msgstr "Ta funkcija izbere, ali so naročnine aktivne ali ne. Če počistite polje »Dnevno«, lahko onemogočite vse naročnine hkrati. Če ga označite, se naročnine znova aktivirajo."
 
 msgid "REMOVE EMAIL SUBSCRIPTION TO RESOURCE?"
 msgstr "ODSTRANITE E-POŠTNO NAROČNINO NA VIR?"
