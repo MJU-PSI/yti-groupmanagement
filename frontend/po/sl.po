@@ -1,29 +1,14 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-11-19 15:55+0200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
-"X-Poedit-Basepath: .\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: yti-groupmanagement-ui\n"
+"Language: sl\n"
 
-msgid "Cancel"
-msgstr "Prekliči"
-
-msgid "Copy value to clipboard"
-msgstr "Kopiraj vrednost v odložišče"
-
-msgid "Copied to clipboard"
-msgstr "Kopirano v odložišče"
-
-msgid "Yes"
-msgstr "ja"
+msgid "Angleški napis (izvirno)"
+msgstr "Slovenski prevod"
 
 msgid "Interoperability platform´s user right management"
 msgstr "Upravljanje uporabniških pravic interoperabilnostne platforme"
@@ -33,6 +18,18 @@ msgstr "Potrdite odstranitev"
 
 msgid "Are you sure that you want to remove?"
 msgstr "Ali ste prepričani, da želite odstraniti?"
+
+msgid "Yes"
+msgstr "Da"
+
+msgid "Cancel"
+msgstr "Prekličite"
+
+msgid "Copy value to clipboard"
+msgstr "Kopirajte vrednost v odložišče"
+
+msgid "Copied to clipboard"
+msgstr "Kopirano v odložišče"
 
 msgid "ORGANIZATIONS"
 msgstr "ORGANIZACIJE"
@@ -44,10 +41,10 @@ msgid "Interoperability platform's user right management"
 msgstr "Upravljanje uporabniških pravic interoperabilnostne platforme"
 
 msgid "Impersonate user"
-msgstr "Lažno predstavljanje uporabnika"
+msgstr "Imitiranje uporabnika"
 
 msgid "LOG IN"
-msgstr "VPIŠI SE"
+msgstr "VPIS"
 
 msgid "LOG OUT"
 msgstr "ODJAVA"
@@ -62,25 +59,25 @@ msgid "Terminologies"
 msgstr "Terminologije"
 
 msgid "Data Vocabularies"
-msgstr "Podatkovni besednjaki"
+msgstr "Podatkovna besedišča"
 
 msgid "Comments"
 msgstr "Komentarji"
 
 msgid "Save"
-msgstr "Shrani"
+msgstr "Shranite"
 
 msgid "New organization"
 msgstr "Nova organizacija"
 
 msgid "Admin users"
-msgstr "Skrbniški uporabniki"
+msgstr "Administratorski uporabniki"
 
 msgid "No admin users yet"
-msgstr "Še ni skrbniških uporabnikov"
+msgstr "Ni še administratorskih uporabnikov"
 
 msgid "Add user"
-msgstr "Dodaj uporabnika"
+msgstr "Dodajte uporabnika"
 
 msgid "Save failed"
 msgstr "Shranjevanje ni uspelo"
@@ -107,13 +104,13 @@ msgid "Organization"
 msgstr "Organizacija"
 
 msgid "Edit organization"
-msgstr "Uredi organizacijo"
+msgstr "Uredite organizacijo"
 
 msgid "Add child organization"
 msgstr "Dodajte podrejeno organizacijo"
 
 msgid "Child organizations"
-msgstr "Otroške organizacije"
+msgstr "Podrejene organizacije"
 
 msgid "Main organization"
 msgstr "Glavna organizacija"
@@ -122,31 +119,31 @@ msgid "Users"
 msgstr "Uporabniki"
 
 msgid "No users yet"
-msgstr "Še ni uporabnikov"
+msgstr "Ni še uporabnikov"
 
 msgid "Email"
 msgstr "E-naslov"
 
 msgid "Remove"
-msgstr "Odstrani"
+msgstr "Odstranite"
 
 msgid "Changes saved"
 msgstr "Spremembe shranjene"
 
 msgid "Search organization"
-msgstr "Organizacija iskanja"
+msgstr "Iščite organizacijo"
 
 msgid "Organizations"
 msgstr "Organizacije"
 
 msgid "Show removed organizations only"
-msgstr "Pokaži samo odstranjene organizacije"
+msgstr "Pokažite samo odstranjene organizacije"
 
 msgid "Add new organization"
 msgstr "Dodajte novo organizacijo"
 
 msgid "Search user"
-msgstr "Išči uporabnika"
+msgstr "Iščite uporabnika"
 
 msgid "Select user"
 msgstr "Izberite uporabnika"
@@ -155,10 +152,10 @@ msgid "Access requests"
 msgstr "Zahteve za dostop"
 
 msgid "Decline"
-msgstr "Zavrni"
+msgstr "Zavnite"
 
 msgid "Accept"
-msgstr "Sprejmi"
+msgstr "Sprejmite"
 
 msgid "SuperUser"
 msgstr "SuperUser"
@@ -176,13 +173,13 @@ msgid "This user has a token already."
 msgstr "Ta uporabnik že ima žeton."
 
 msgid "Create API token"
-msgstr "Ustvari žeton API"
+msgstr "Ustvarite žeton API"
 
 msgid "Delete API token"
-msgstr "Izbriši žeton API"
+msgstr "Izbrišite žeton API"
 
 msgid "You have subscribed to be notified via email when the following resources change. To remove the subscription, click the icon next to the resource."
-msgstr "Naročili ste se na prejemanje obvestil po e-pošti, ko se spremenijo naslednji viri. Če želite odstraniti naročnino, kliknite ikono poleg vira."
+msgstr "Naročili ste se na prejemanje e-poštnih obvestil, ko se spremenijo naslednji viri. Če želite odstraniti naročnino, kliknite ikono poleg vira."
 
 msgid "Email notifications"
 msgstr "E-poštna obvestila"
@@ -212,22 +209,22 @@ msgid "All roles"
 msgstr "Vse vloge"
 
 msgid "Front page"
-msgstr "Prednja stran"
+msgstr "Naslovna stran"
 
 msgid "DATA_MODEL_EDITOR"
-msgstr "Urejevalnik podatkovnih modelov"
+msgstr "Urejevalec podatkovnih modelov"
 
 msgid "TERMINOLOGY_EDITOR"
-msgstr "Terminološki urednik"
+msgstr "Urejevalec terminologije"
 
 msgid "CODE_LIST_EDITOR"
-msgstr "Urejevalnik šifrantov"
+msgstr "Urejevalec šifrantov"
 
 msgid "MEMBER"
-msgstr "član"
+msgstr "Član"
 
 msgid "ADMIN"
-msgstr "skrbnik"
+msgstr "Administrator"
 
 msgid "All organizations"
 msgstr "Vse organizacije"
@@ -242,10 +239,11 @@ msgid "INFO_TEXT_TOKEN"
 msgstr "Ustvarjeni žeton je mogoče uporabiti pri dostopu API-ja tako, da ga vnesete v glavo HTTP z imenom »Authorization« s predpono »Bearer«."
 
 msgid "INFO_TEXT_EMAIL_SUBSCRIPTIONS"
-msgstr "Ta funkcija izbere, ali so naročnine aktivne ali ne. Če počistite polje »Dnevno«, lahko onemogočite vse naročnine hkrati. Če ga označite, se naročnine znova aktivirajo."
+msgstr "Ta funkcija izbere, ali so naročnine aktivne ali ne. Če odkljukate polje »Dnevno«, lahko onemogočite vse naročnine hkrati. Če ga označite, se naročnine znova aktivirajo."
 
 msgid "REMOVE EMAIL SUBSCRIPTION TO RESOURCE?"
-msgstr "ODSTRANITE E-POŠTNO NAROČNINO NA VIR?"
+msgstr "ODSTRANITE NAROČNINO NA E-POŠTNA OBVESTILA NA VIR?"
 
 msgid "Error"
 msgstr "Napaka"
+
