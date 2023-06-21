@@ -80,7 +80,7 @@ public final class ApplicationProperties {
     }
 
     public String getDefaultLanguage() {
-        return defaultLanguage != null ? defaultLanguage : "en";
+        return this.defaultLanguage != null ? this.defaultLanguage : "en";
     }
 
     public void setDefaultLanguage(final String defaultLanguage) {

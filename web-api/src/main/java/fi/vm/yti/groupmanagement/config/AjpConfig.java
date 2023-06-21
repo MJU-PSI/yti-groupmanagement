@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -34,5 +35,15 @@ public class AjpConfig {
         }
 
         return tomcat;
+    }
+
+    @Bean
+    public ResourceBundleMessageSource messageSource() {
+
+        var source = new ResourceBundleMessageSource();
+        source.setBasenames("messages/labels");
+        source.setUseCodeAsDefaultMessage(true);
+
+        return source;
     }
 }

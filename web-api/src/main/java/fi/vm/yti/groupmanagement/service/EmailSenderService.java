@@ -1,6 +1,7 @@
 package fi.vm.yti.groupmanagement.service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.mail.Address;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +37,9 @@ public class EmailSenderService {
     private final JavaMailSender javaMailSender;
     private final String environmentUrl;
     private final String adminEmail;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @Autowired
     public EmailSenderService(final ApplicationProperties applicationProperties,
@@ -94,11 +99,12 @@ public class EmailSenderService {
         try {
             final MimeMessage mail = javaMailSender.createMimeMessage();
             mail.addRecipients(BCC, adminEmails.stream().map(EmailSenderService::createAddress).toArray(Address[]::new));
-            final String message = "Sinulle on " + requestCount + " uutta käyttöoikeuspyyntöä organisaatioon '"
-                    + organizationName + "':   " + environmentUrl;
+            // final String message = "Sinulle on " + requestCount + " uutta käyttöoikeuspyyntöä organisaatioon '"
+            //         + organizationName + "':   " + environmentUrl;
+            final String message = messageSource.getMessage("l1", new Object[] {requestCount, organizationName, environmentUrl}, Locale.forLanguageTag(applicationProperties.getDefaultLanguage()));
             mail.setFrom(createAddress(adminEmail));
             mail.setSender(createAddress(adminEmail));
-            mail.setSubject("Sinulle on uusia käyttöoikeuspyyntöjä", "UTF-8");
+            mail.setSubject(messageSource.getMessage("l2", null, Locale.forLanguageTag(applicationProperties.getDefaultLanguage())), "UTF-8");
             mail.setText(message, "UTF-8");
             javaMailSender.send(mail);
         } catch (final MessagingException e) {
@@ -113,11 +119,12 @@ public class EmailSenderService {
         try {
             final MimeMessage mail = javaMailSender.createMimeMessage();
             mail.addRecipient(TO, createAddress(userEmail));
-            final String message = "Teille on myönnetty käyttöoikeus yhteentoimivuusalustan organisaatioon '"
-                    + organizationName + "':   " + environmentUrl;
+            // final String message = "Teille on myönnetty käyttöoikeus yhteentoimivuusalustan organisaatioon '"
+            //         + organizationName + "':   " + environmentUrl;
+            final String message = messageSource.getMessage("l3", new Object[] {organizationName, environmentUrl}, Locale.forLanguageTag(applicationProperties.getDefaultLanguage()));
             mail.setFrom(createAddress(adminEmail));
             mail.setSender(createAddress(adminEmail));
-            mail.setSubject("Ilmoitus käyttöoikeuden hyväksymisestä", "UTF-8");
+            mail.setSubject(messageSource.getMessage("l4", null, Locale.forLanguageTag(applicationProperties.getDefaultLanguage())), "UTF-8");
             mail.setText(message, "UTF-8");
             javaMailSender.send(mail);
             logger.info("Organization request accepted email sent to: " + userId);
@@ -138,7 +145,7 @@ public class EmailSenderService {
             final String message = createTempUserInviteString(resourceUri, resourceUriWithToken);
             mail.setFrom(createAddress(adminEmail));
             mail.setSender(createAddress(adminEmail));
-            mail.setSubject("Ilmoitus kommentointikierrokselle osallistumisesta", "UTF-8");
+            mail.setSubject(messageSource.getMessage("l5", null, Locale.forLanguageTag(applicationProperties.getDefaultLanguage())), "UTF-8");
             mail.setContent(message, "text/html; charset=UTF-8");
             javaMailSender.send(mail);
             logger.info("Temp user invitation email sent to: " + userId + " for resource: " + resourceUri);
@@ -149,17 +156,18 @@ public class EmailSenderService {
 
     private String createTempUserInviteString(final String resourceUri,
                                               final String resourceUriWithToken) {
-        final StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("<body>");
-        stringBuffer.append("Hyvä vastaanottaja,<br/><br/>");
-        stringBuffer.append("Olet saanut kutsun Yhteentoimivuusalustan kommentointikierrokselle.<br/><br/>");
-        stringBuffer.append("Pääset kommentoimaan kierroksella olevia sisältöjä alla olevasta linkistä. Huomioithan, että linkki on henkilökohtainen ja sen kautta tehty kommentointi tallentuu kierrokselle sinun nimissäsi! Älä siis jaa linkkiä eteenpäin. Linkki on voimassa 6 kk.<br/><br/>");
-        stringBuffer.append("<a href=\"" + resourceUriWithToken + "\">" + resourceUri + "</a><br/><br/>");
-        stringBuffer.append("Kommentointi-työkalun käyttöohjeet löydät <a href=\"https://wiki.dvv.fi/display/YTIJD/6.+Kommentointi\">täältä</a>.<br/><br/>");
-        stringBuffer.append("Tämä viesti on lähetetty automaattisesti Yhteentoimivuusalustan Kommentit-työkalusta. Ethän vastaa viestiin!<br/><br/>");
-        stringBuffer.append("Jos käytön suhteen ilmenee teknisiä ongelmia, otathan yhteyttä Digi- ja väestötietovirastoon yhteentoimivuus@dvv.fi!");
-        stringBuffer.append("</body>");
-        return stringBuffer.toString();
+        // final StringBuffer stringBuffer = new StringBuffer();
+        // stringBuffer.append("<body>");
+        // stringBuffer.append("Hyvä vastaanottaja,<br/><br/>");
+        // stringBuffer.append("Olet saanut kutsun Yhteentoimivuusalustan kommentointikierrokselle.<br/><br/>");
+        // stringBuffer.append("Pääset kommentoimaan kierroksella olevia sisältöjä alla olevasta linkistä. Huomioithan, että linkki on henkilökohtainen ja sen kautta tehty kommentointi tallentuu kierrokselle sinun nimissäsi! Älä siis jaa linkkiä eteenpäin. Linkki on voimassa 6 kk.<br/><br/>");
+        // stringBuffer.append("<a href=\"" + resourceUriWithToken + "\">" + resourceUri + "</a><br/><br/>");
+        // stringBuffer.append("Kommentointi-työkalun käyttöohjeet löydät <a href=\"https://wiki.dvv.fi/display/YTIJD/6.+Kommentointi\">täältä</a>.<br/><br/>");
+        // stringBuffer.append("Tämä viesti on lähetetty automaattisesti Yhteentoimivuusalustan Kommentit-työkalusta. Ethän vastaa viestiin!<br/><br/>");
+        // stringBuffer.append("Jos käytön suhteen ilmenee teknisiä ongelmia, otathan yhteyttä Digi- ja väestötietovirastoon yhteentoimivuus@dvv.fi!");
+        // stringBuffer.append("</body>");
+        // return stringBuffer.toString();
+        return messageSource.getMessage("l6", new Object[] {resourceUriWithToken, resourceUri}, Locale.forLanguageTag(applicationProperties.getDefaultLanguage()));
     }
 
     private String constructContainerUriWithTokenAndEnv(final String uri,
