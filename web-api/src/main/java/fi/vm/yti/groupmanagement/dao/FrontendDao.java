@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import fi.vm.yti.groupmanagement.config.ApplicationProperties;
+import fi.vm.yti.groupmanagement.config.GroupManagmentProperties;
 import fi.vm.yti.groupmanagement.model.Organization;
 import fi.vm.yti.groupmanagement.model.OrganizationListItem;
 import fi.vm.yti.groupmanagement.model.OrganizationTrans;
@@ -46,15 +46,15 @@ public class FrontendDao {
 
     private final Database db;
     private final TokenServiceImpl tokenService;
-    private final ApplicationProperties applicationProperties;
+    private final GroupManagmentProperties groupManagmentProperties;
 
     @Autowired
     public FrontendDao(final Database db,
             final TokenServiceImpl tokenService,
-            final ApplicationProperties applicationProperties) {
+            final GroupManagmentProperties groupManagmentProperties) {
         this.db = db;
         this.tokenService = tokenService;
-        this.applicationProperties = applicationProperties;
+        this.groupManagmentProperties = groupManagmentProperties;
     }
 
     public List<UserWithRolesInOrganizations> getUsersForAdminOrganizations(final String email) {
@@ -290,7 +290,7 @@ public class FrontendDao {
         String name;
         name = db.findUnique(String.class,
                 "SELECT name FROM organization_trans WHERE organization_id=? AND language = ?", id,
-                applicationProperties.getDefaultLanguage());
+                groupManagmentProperties.getDefaultLanguage());
         if (name == null) {
             List<String> names = db.findAll(String.class, "SELECT name FROM organization_trans WHERE organization_id=?",
                     id);

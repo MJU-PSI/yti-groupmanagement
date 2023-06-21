@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fi.vm.yti.groupmanagement.config.ApplicationProperties;
+import fi.vm.yti.groupmanagement.config.GroupManagmentProperties;
 import fi.vm.yti.groupmanagement.dao.EmailSenderDao;
 import fi.vm.yti.groupmanagement.dao.FrontendDao;
 import fi.vm.yti.groupmanagement.model.TempUser;
@@ -37,6 +38,7 @@ public class EmailSenderService {
     private final JavaMailSender javaMailSender;
     private final String environmentUrl;
     private final String adminEmail;
+    private final GroupManagmentProperties groupManagmentProperties;
 
     @Autowired
     private MessageSource messageSource;
@@ -47,7 +49,8 @@ public class EmailSenderService {
                               final FrontendDao frontendDao,
                               final JavaMailSender javaMailSender,
                               @Value("${environment.url}") final String environmentUrl,
-                              @Value("${admin.email}") final String adminEmail) {
+                              @Value("${admin.email}") final String adminEmail,
+                              GroupManagmentProperties groupManagmentProperties) {
         this.applicationProperties = applicationProperties;
         this.emailSenderDao = emailSenderDao;
         this.frontendDao = frontendDao;
@@ -55,6 +58,7 @@ public class EmailSenderService {
         this.environmentUrl = environmentUrl;
         this.adminEmail = adminEmail;
         logger.info("Use configured ADMIN email: " + adminEmail);
+        this.groupManagmentProperties = groupManagmentProperties;
     }
 
     private static Address createAddress(final String address) {
@@ -101,10 +105,10 @@ public class EmailSenderService {
             mail.addRecipients(BCC, adminEmails.stream().map(EmailSenderService::createAddress).toArray(Address[]::new));
             // final String message = "Sinulle on " + requestCount + " uutta käyttöoikeuspyyntöä organisaatioon '"
             //         + organizationName + "':   " + environmentUrl;
-            final String message = messageSource.getMessage("l1", new Object[] {requestCount, organizationName, environmentUrl}, Locale.forLanguageTag(applicationProperties.getDefaultLanguage()));
+            final String message = messageSource.getMessage("l1", new Object[] {requestCount, organizationName, environmentUrl}, Locale.forLanguageTag(groupManagmentProperties.getDefaultLanguage()));
             mail.setFrom(createAddress(adminEmail));
             mail.setSender(createAddress(adminEmail));
-            mail.setSubject(messageSource.getMessage("l2", null, Locale.forLanguageTag(applicationProperties.getDefaultLanguage())), "UTF-8");
+            mail.setSubject(messageSource.getMessage("l2", null, Locale.forLanguageTag(groupManagmentProperties.getDefaultLanguage())), "UTF-8");
             mail.setText(message, "UTF-8");
             javaMailSender.send(mail);
         } catch (final MessagingException e) {
@@ -121,10 +125,10 @@ public class EmailSenderService {
             mail.addRecipient(TO, createAddress(userEmail));
             // final String message = "Teille on myönnetty käyttöoikeus yhteentoimivuusalustan organisaatioon '"
             //         + organizationName + "':   " + environmentUrl;
-            final String message = messageSource.getMessage("l3", new Object[] {organizationName, environmentUrl}, Locale.forLanguageTag(applicationProperties.getDefaultLanguage()));
+            final String message = messageSource.getMessage("l3", new Object[] {organizationName, environmentUrl}, Locale.forLanguageTag(groupManagmentProperties.getDefaultLanguage()));
             mail.setFrom(createAddress(adminEmail));
             mail.setSender(createAddress(adminEmail));
-            mail.setSubject(messageSource.getMessage("l4", null, Locale.forLanguageTag(applicationProperties.getDefaultLanguage())), "UTF-8");
+            mail.setSubject(messageSource.getMessage("l4", null, Locale.forLanguageTag(groupManagmentProperties.getDefaultLanguage())), "UTF-8");
             mail.setText(message, "UTF-8");
             javaMailSender.send(mail);
             logger.info("Organization request accepted email sent to: " + userId);
@@ -145,7 +149,7 @@ public class EmailSenderService {
             final String message = createTempUserInviteString(resourceUri, resourceUriWithToken);
             mail.setFrom(createAddress(adminEmail));
             mail.setSender(createAddress(adminEmail));
-            mail.setSubject(messageSource.getMessage("l5", null, Locale.forLanguageTag(applicationProperties.getDefaultLanguage())), "UTF-8");
+            mail.setSubject(messageSource.getMessage("l5", null, Locale.forLanguageTag(groupManagmentProperties.getDefaultLanguage())), "UTF-8");
             mail.setContent(message, "text/html; charset=UTF-8");
             javaMailSender.send(mail);
             logger.info("Temp user invitation email sent to: " + userId + " for resource: " + resourceUri);
@@ -167,7 +171,7 @@ public class EmailSenderService {
         // stringBuffer.append("Jos käytön suhteen ilmenee teknisiä ongelmia, otathan yhteyttä Digi- ja väestötietovirastoon yhteentoimivuus@dvv.fi!");
         // stringBuffer.append("</body>");
         // return stringBuffer.toString();
-        return messageSource.getMessage("l6", new Object[] {resourceUriWithToken, resourceUri}, Locale.forLanguageTag(applicationProperties.getDefaultLanguage()));
+        return messageSource.getMessage("l6", new Object[] {resourceUriWithToken, resourceUri}, Locale.forLanguageTag(groupManagmentProperties.getDefaultLanguage()));
     }
 
     private String constructContainerUriWithTokenAndEnv(final String uri,

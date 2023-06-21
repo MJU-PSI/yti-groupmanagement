@@ -7,7 +7,7 @@ import org.dalesbred.Database;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import fi.vm.yti.groupmanagement.config.ApplicationProperties;
+import fi.vm.yti.groupmanagement.config.GroupManagmentProperties;
 import fi.vm.yti.groupmanagement.model.TempUser;
 import fi.vm.yti.groupmanagement.model.UnsentRequestsForOrganization;
 
@@ -17,12 +17,12 @@ public class EmailSenderDao {
     final String getTempUsersWithContainerQuery = "SELECT email, firstName, lastName, id, token_role, container_uri FROM tempuser WHERE token_created_at IS NULL AND email IS NOT NULL AND container_uri = ?";
 
     private final Database database;
-    private final ApplicationProperties applicationProperties;
+    private final GroupManagmentProperties groupManagmentProperties;
 
     @Autowired
-    public EmailSenderDao(final Database database, final ApplicationProperties applicationProperties) {
+    public EmailSenderDao(final Database database, final GroupManagmentProperties groupManagmentProperties) {
         this.database = database;
-        this.applicationProperties = applicationProperties;
+        this.groupManagmentProperties = groupManagmentProperties;
     }
 
     public List<UnsentRequestsForOrganization> getUnsentRequests() {
@@ -48,7 +48,7 @@ public class EmailSenderDao {
                 "GROUP BY uro.id, uro.name, uro.user_id, uro.request_count";
 
         return database.findAll(UnsentRequestsForOrganization.class, getUnsentQuery,
-                applicationProperties.getDefaultLanguage());
+                groupManagmentProperties.getDefaultLanguage());
     }
 
     public List<TempUser> getTempUsersWithoutTokensAndContainerUri(final String containerUri) {
