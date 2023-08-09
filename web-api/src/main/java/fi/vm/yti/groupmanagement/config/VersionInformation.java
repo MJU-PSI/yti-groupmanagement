@@ -11,7 +11,7 @@ public class VersionInformation {
     @Value(value = "${git.commit.id.abbrev:dev}")
     private String commitId;
 
-    @Value(value = "${git.branch}")
+    @Value(value = "${git.branch:}")
     private String branch;
 
     public String getCommitId() {
