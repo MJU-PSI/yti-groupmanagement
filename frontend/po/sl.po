@@ -38,7 +38,7 @@ msgid "USERS"
 msgstr "UPORABNIKI"
 
 msgid "Interoperability platform's user right management"
-msgstr "Upravljanje uporabniških pravic interoperabilnostne platforme"
+msgstr "Upravljanje uporabniških pravic Platforme za semantično interoperabilnost"
 
 msgid "Impersonate user"
 msgstr "Imitiranje uporabnika"
@@ -53,7 +53,7 @@ msgid "User details"
 msgstr "Podrobnosti o uporabniku"
 
 msgid "Reference Data"
-msgstr "Referenčni podatki"
+msgstr "Šifranti"
 
 msgid "Terminologies"
 msgstr "Terminologije"
