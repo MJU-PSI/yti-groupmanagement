@@ -78,7 +78,7 @@ export function initApp(configurationService: ConfigurationService) {
 }
 
 export function resolveAuthenticatedUserEndpoint() {
-  return '/api/authenticated-user';
+  return 'api/authenticated-user';
 }
 
 export function createTranslateLoader(): TranslateLoader {
@@ -219,6 +219,7 @@ export class AppModule {
               router: Router,
               modalService: ModalService) {
 
+    apinaConfig.baseUrl = ".";
     apinaConfig.registerIdentitySerializer('Dictionary<string>');
 
     router.events.subscribe(event => {
