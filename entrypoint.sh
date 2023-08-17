@@ -10,7 +10,7 @@ jar -xf yti-groupmanagement.jar static/configuration/configuration.template.json
 envsubst < ./static/configuration/configuration.template.json > ./static/configuration/configuration.json
 
 # Replace base href in index.html
-if [[ $ANGULAR_BASE_HREF != */ ]] # * is used for pattern matching
+if [[ $ANGULAR_BASE_HREF != "/" ]] # * is used for pattern matching
 then
   ANGULAR_BASE_HREF="${ANGULAR_BASE_HREF}/";
   sed -i 's#<base href="./">#<base href="'"${ANGULAR_BASE_HREF}"'">#' ./static/index.html
