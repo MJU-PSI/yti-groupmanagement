@@ -1,0 +1,7 @@
+web-api/.gradle
+web-api/build
+web-api/bin
+frontend/.gradle
+frontend/build
+frontend/node_modules
+frontend/dist

@@ -1,4 +1,2 @@
 #!/bin/bash
-
-./gradlew assemble
-docker build -f Dockerfile -t yti-groupmanagement .
+docker build -t yti-groupmanagement:latest .
