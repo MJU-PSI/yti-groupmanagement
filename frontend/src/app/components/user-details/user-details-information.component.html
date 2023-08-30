@@ -26,7 +26,8 @@
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" *ngIf="false">
+    <!-- we don't need this implementation -->
     <label translate>API token</label>
     <app-information-symbol [infoText]="'INFO_TEXT_TOKEN'"></app-information-symbol>
     <app-inline-clipboard *ngIf="token"

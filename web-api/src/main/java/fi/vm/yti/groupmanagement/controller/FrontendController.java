@@ -150,28 +150,28 @@ public class FrontendController {
         return model;
     }
 
-    @RequestMapping(value = "/token", method = POST, produces = APPLICATION_JSON_VALUE)
-    public TokenModel createToken() {
-        final UUID userId = authorizationManager.getUser().getId();
-        if (userId != null) {
-            final String token = frontendService.createToken(userId);
-            final TokenModel model = new TokenModel();
-            model.token = token;
-            return model;
-        } else {
-            throw new RuntimeException("User is not logged in, failing token creation.");
-        }
-    }
+    // @RequestMapping(value = "/token", method = POST, produces = APPLICATION_JSON_VALUE)
+    // public TokenModel createToken() {
+    //     final UUID userId = authorizationManager.getUser().getId();
+    //     if (userId != null) {
+    //         final String token = frontendService.createToken(userId);
+    //         final TokenModel model = new TokenModel();
+    //         model.token = token;
+    //         return model;
+    //     } else {
+    //         throw new RuntimeException("User is not logged in, failing token creation.");
+    //     }
+    // }
 
-    @RequestMapping(value = "/token", method = DELETE)
-    public Boolean deleteToken() {
-        final UUID userId = authorizationManager.getUser().getId();
-        if (userId != null) {
-            return frontendService.deleteToken(userId);
-        } else {
-            throw new RuntimeException("User is not logged in, failing token creation.");
-        }
-    }
+    // @RequestMapping(value = "/token", method = DELETE)
+    // public Boolean deleteToken() {
+    //     final UUID userId = authorizationManager.getUser().getId();
+    //     if (userId != null) {
+    //         return frontendService.deleteToken(userId);
+    //     } else {
+    //         throw new RuntimeException("User is not logged in, failing token creation.");
+    //     }
+    // }
 
     @RequestMapping(value = "/version")
     public VersionInformation getVersion() {
