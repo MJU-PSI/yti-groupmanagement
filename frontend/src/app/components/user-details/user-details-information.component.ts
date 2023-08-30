@@ -83,24 +83,24 @@ export class UserDetailsInformationComponent implements OnDestroy {
     return this.token !== undefined || this.hasExistingToken;
   }
 
-  createToken() {
+  // createToken() {
 
-    this.apiService.createToken().subscribe(token => {
-      if (token) {
-        this.token = token.token;
-      } else {
-        this.token = undefined;
-      }
-    })
-  }
+  //   this.apiService.createToken().subscribe(token => {
+  //     if (token) {
+  //       this.token = token.token;
+  //     } else {
+  //       this.token = undefined;
+  //     }
+  //   })
+  // }
 
-  deleteToken() {
+  // deleteToken() {
 
-    this.apiService.deleteToken().subscribe(boolean => {
-      if (boolean) {
-        this.token = undefined;
-        this.tokenDeleted = true;
-      }
-    })
-  }
+  //   this.apiService.deleteToken().subscribe(boolean => {
+  //     if (boolean) {
+  //       this.token = undefined;
+  //       this.tokenDeleted = true;
+  //     }
+  //   })
+  // }
 }

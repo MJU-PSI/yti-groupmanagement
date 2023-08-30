@@ -122,11 +122,11 @@ export class ApiService {
     return this.endpoint.getConfiguration();
   }
 
-  createToken(): Observable<TokenModel> {
-    return this.endpoint.createToken();
-  }
+  // createToken(): Observable<TokenModel> {
+  //   return this.endpoint.createToken();
+  // }
 
-  deleteToken(): Observable<boolean> {
-    return this.endpoint.deleteToken();
-  }
+  // deleteToken(): Observable<boolean> {
+  //   return this.endpoint.deleteToken();
+  // }
 }
