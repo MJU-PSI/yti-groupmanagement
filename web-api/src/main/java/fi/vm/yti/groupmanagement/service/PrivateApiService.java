@@ -24,7 +24,8 @@ public class PrivateApiService {
     private final static String[] ALLOWED_ROLES = {
             Role.CODE_LIST_EDITOR.toString(),
             Role.DATA_MODEL_EDITOR.toString(),
-            Role.TERMINOLOGY_EDITOR.toString()
+            Role.TERMINOLOGY_EDITOR.toString(),
+            Role.MEMBER.toString()
     };
 
     @Autowired
