@@ -1,4 +1,4 @@
-DELETE FROM public.request;
-DELETE FROM public.user_organization;
-DELETE FROM public.user;
-DELETE FROM public.organization;
+DELETE FROM request;
+DELETE FROM user_organization;
+DELETE FROM user;
+DELETE FROM organization;
