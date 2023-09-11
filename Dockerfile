@@ -29,5 +29,6 @@ FROM yti-docker-java11-base:alpine
 # Copy from builder 
 COPY --from=builder /app/web-api/build/libs/yti-groupmanagement.jar ${deploy_dir}/yti-groupmanagement.jar
 ADD entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
