@@ -260,3 +260,18 @@ msgstr "TA BORT E-POSTBESTÄLLNINGEN OM MATERIALET?"
 
 msgid "Error"
 msgstr "Fel"
+
+msgid "Set as superuser"
+msgstr ""
+
+msgid "Remove as superuser"
+msgstr ""
+
+msgid "Confirm the change"
+msgstr ""
+
+msgid "Set user as superuser?"
+msgstr ""
+
+msgid "Remove user as superuser?"
+msgstr ""

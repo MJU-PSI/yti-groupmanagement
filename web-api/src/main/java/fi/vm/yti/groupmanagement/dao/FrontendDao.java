@@ -147,6 +147,26 @@ public class FrontendDao {
         }
     }
 
+    public boolean setSuperuser(String email) {
+        final int modifiedRows = db.update("UPDATE \"user\" SET superuser=? WHERE email = ?",
+            true, email);
+        if (modifiedRows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean removeSuperuser(String email) {
+        final int modifiedRows = db.update("UPDATE \"user\" SET superuser=? WHERE email = ?",
+            false, email);
+        if (modifiedRows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public @NotNull List<OrganizationListItem> getMainOrganizationListOpt(Boolean showRemoved) {
         final List<OrganizationTransListItemRow> rows = db.findAll(OrganizationTransListItemRow.class,
                 "SELECT o.id, t.language, t.name, t.description FROM organization o JOIN organization_trans t ON o.id = t.organization_id WHERE o.removed = ? AND o.parent_id IS NULL ORDER BY o.id, t.language",

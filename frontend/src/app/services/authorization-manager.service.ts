@@ -40,4 +40,12 @@ export class AuthorizationManager {
     return this.user.superuser;
   }
 
+  canSetSuperuser(): boolean {
+    return this.user.superuser;
+  }
+
+  canRemoveSuperuser(): boolean {
+    return this.user.superuser;
+  }
+
 }

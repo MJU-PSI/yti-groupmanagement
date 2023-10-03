@@ -274,6 +274,34 @@ public class FrontendService {
     }
 
     @Transactional
+    public boolean setSuperuser(final String email) {
+
+        final YtiUser user = userProvider.getUser();
+        if (user.isSuperuser() && !user.getEmail().equals(email)) {
+            final UUID userId = frontendDao.getUserIdForEmail(email);
+            if (userId != null) {
+                logger.info("Adding user as superuser: " + userId + " by user: " + user.getId());
+                return frontendDao.setSuperuser(email);
+            }
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean removeSuperuser(final String email) {
+
+        final YtiUser user = userProvider.getUser();
+        if (user.isSuperuser() && !user.getEmail().equals(email)) {
+            final UUID userId = frontendDao.getUserIdForEmail(email);
+            if (userId != null) {
+                logger.info("Removing user as superuser: " + userId + " by user: " + user.getId());
+                return frontendDao.removeSuperuser(email);
+            }
+        }
+        return false;
+    }
+
+    @Transactional
     public List<String> getAllRoles() {
         return frontendDao.getAllRoles();
     }

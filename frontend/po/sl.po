@@ -247,3 +247,17 @@ msgstr "ODSTRANITE NAROČNINO NA E-POŠTNA OBVESTILA NA VIR?"
 msgid "Error"
 msgstr "Napaka"
 
+msgid "Set as superuser"
+msgstr "Dodajte kot superuporabnik"
+
+msgid "Remove as superuser"
+msgstr "Odstranite kot superuporabnik"
+
+msgid "Confirm the change"
+msgstr "Potrdite spremembo"
+
+msgid "Set user as superuser?"
+msgstr "Želite nastaviti uporabnika kot superuporabnik?"
+
+msgid "Remove user as superuser?"
+msgstr "Želite odstraniti uporabnika kot superuporabnik?"

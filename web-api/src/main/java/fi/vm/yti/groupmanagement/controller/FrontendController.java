@@ -115,6 +115,16 @@ public class FrontendController {
         return this.frontendService.removeUser(email);
     }
 
+    @RequestMapping(value = "/setsuperuser/{email}/", method = POST)
+    public Boolean setSuperuser(@PathVariable("email") final String email) {
+        return this.frontendService.setSuperuser(email);
+    }
+
+    @RequestMapping(value = "/removesuperuser/{email}/", method = POST)
+    public Boolean removeSuperuser(@PathVariable("email") final String email) {
+        return this.frontendService.removeSuperuser(email);
+    }
+
     @RequestMapping(value = "/requests", method = GET, produces = APPLICATION_JSON_VALUE)
     public List<UserRequestWithOrganization> getAllUserRequests() {
         return this.frontendService.getAllUserRequests();

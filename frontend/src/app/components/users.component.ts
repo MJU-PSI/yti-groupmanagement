@@ -3,7 +3,7 @@ import { OrganizationListItem, UUID } from '../apina';
 import { LocationService } from '../services/location.service';
 import { ApiService } from '../services/api.service';
 import { Observable, BehaviorSubject, Subject, combineLatest } from 'rxjs';
-import { Localizable, requireDefined, index, FilterOptions, UserService, ignoreModalClose } from '@mju-psi/yti-common-ui';
+import { Localizable, requireDefined, index, FilterOptions, UserService, ignoreModalClose, ConfirmationModalService } from '@mju-psi/yti-common-ui';
 import { LanguageService } from '../services/language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from '../entities/user';
@@ -50,6 +50,20 @@ import { map } from 'rxjs/operators';
             <span class="fa fa-trash"></span>
             <span translate>Remove</span>
           </button>
+          <button class="btn btn-link btn-sm"
+                  id="{{user.email + '_add_superuser_button'}}"
+                  (click)="setSuperuser(user)"
+                  *ngIf="canSetSuperuser(user)">
+            <span class="fa fa-user-plus"></span>
+            <span translate>Set as superuser</span>
+          </button>
+          <button class="btn btn-link btn-sm"
+                  id="{{user.email + '_remove_superuser_button'}}"
+                  (click)="removeSuperuser(user)"
+                  *ngIf="canRemoveSuperuser(user)">
+            <span class="fa fa-user-times"></span>
+            <span translate>Remove as superuser</span>
+          </button>
           <div id="time">{{user.creationDateTime | dateTime }}</div>
           <div *ngIf="user.superuser" id="superuser"><br translate>SuperUser</div>
         </h4>
@@ -89,7 +103,8 @@ export class UsersComponent {
               translateService: TranslateService,
               userService: UserService,
               private authorizationManager: AuthorizationManager,
-              private deleteUserModal: DeleteConfirmationModalService) {
+              private deleteUserModal: DeleteConfirmationModalService,
+              private confirmationModalService: ConfirmationModalService) {
 
     this.refreshUsers();
 
@@ -168,10 +183,42 @@ export class UsersComponent {
     return this.authorizationManager.canRemoveUser();
   }
 
+  canSetSuperuser(user: UserViewModel): boolean {
+    return this.authorizationManager.canSetSuperuser() && !user.superuser;
+  }
+
+  canRemoveSuperuser(user: UserViewModel): boolean {
+    return this.authorizationManager.canRemoveSuperuser() && user.superuser && this.authorizationManager.user.email !== user.email;
+  }
+
   removeUser(user: UserViewModel) {
     this.deleteUserModal.open(user.displayName, user.email, 'This user will be removed.')
       .then(() => {
         this.apiService.removeUser(user.email)
+          .subscribe(() => this.refreshUsers());
+      }, ignoreModalClose);
+  }
+
+  setSuperuser(user: UserViewModel) {
+    return this.confirmationModalService.openWithNonTranslatableContentAlsoPresent(
+      'Confirm the change',
+      ["  - " + user.displayName + " (" + user.email + ")"],
+      undefined,
+      "Set user as superuser?"
+    ).then(() => {
+        this.apiService.setSuperuser(user.email)
+          .subscribe(() => this.refreshUsers());
+      }, ignoreModalClose);
+  }
+
+  removeSuperuser(user: UserViewModel) {
+    this.confirmationModalService.openWithNonTranslatableContentAlsoPresent(
+      'Confirm the change',
+      ["  - " + user.displayName + " (" + user.email + ")"],
+      undefined,
+      "Remove user as superuser?"
+    ).then(() => {
+        this.apiService.removeSuperuser(user.email)
           .subscribe(() => this.refreshUsers());
       }, ignoreModalClose);
   }

@@ -44,6 +44,14 @@ export class ApiService {
     return this.endpoint.removeUser(userEmail);
   }
 
+  setSuperuser(userEmail: string): Observable<boolean> {
+    return this.endpoint.setSuperuser(userEmail);
+  }
+
+  removeSuperuser(userEmail: string): Observable<boolean> {
+    return this.endpoint.removeSuperuser(userEmail);
+  }
+
   getOrganizationListOpt(showRemoved: boolean): Observable<OrganizationListItem[]> {
     return this.endpoint.getOrganizationsOpt(showRemoved);
   }
