@@ -70,8 +70,8 @@ import {ConfigurationService} from "../../services/configuration.service";
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" id="navigation_link_user_details" [routerLink]="['/userDetails']" translate>User details</a>
             <a class="dropdown-item" id="navigation_reference_data_link" [href]="configService.codeListUrl" target="_blank" rel="noopener noreferrer" translate>Reference Data</a>
-            <a class="dropdown-item" id="navigation_terminologies_link" [href]="configService.terminologyUrl" target="_blank" rel="noopener noreferrer" translate>Terminologies</a>
-            <a class="dropdown-item" id="navigation_data_vocabularies_link" [href]="configService.dataModelUrl" target="_blank" rel="noopener noreferrer" translate>Data Vocabularies</a>
+            <a class="dropdown-item" id="navigation_terminologies_link" [href]="configService.terminologyUrl" target="_blank" rel="noopener noreferrer" translate>Terminology</a>
+            <a class="dropdown-item" id="navigation_data_vocabularies_link" [href]="configService.dataModelUrl" target="_blank" rel="noopener noreferrer" translate>Data models</a>
             <a class="dropdown-item" id="navigation_comments_link" [href]="configService.commentsUrl" target="_blank" rel="noopener noreferrer" translate>Comments</a>
           </div>
         </li>

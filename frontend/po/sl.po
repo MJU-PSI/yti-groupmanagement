@@ -55,10 +55,10 @@ msgstr "Podrobnosti o uporabniku"
 msgid "Reference Data"
 msgstr "Šifranti"
 
-msgid "Terminologies"
+msgid "Terminology"
 msgstr "Terminologija"
 
-msgid "Data Vocabularies"
+msgid "Data models"
 msgstr "Podatkovna besedišča"
 
 msgid "Comments"
@@ -188,7 +188,7 @@ msgid "Daily"
 msgstr "Dnevno"
 
 msgid "Code list resources"
-msgstr "Viri kodnega seznama"
+msgstr "Viri šifranta"
 
 msgid "Terminology resources"
 msgstr "Terminološki viri"

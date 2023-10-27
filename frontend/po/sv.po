@@ -58,10 +58,10 @@ msgstr "Användaruppgifter"
 msgid "Reference Data"
 msgstr "Kodlistor"
 
-msgid "Terminologies"
+msgid "Terminology"
 msgstr "Ordlistor"
 
-msgid "Data Vocabularies"
+msgid "Data models"
 msgstr "Informationsmodeller"
 
 msgid "Comments"
