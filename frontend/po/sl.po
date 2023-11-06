@@ -59,7 +59,7 @@ msgid "Terminology"
 msgstr "Terminologija"
 
 msgid "Data models"
-msgstr "Podatkovna besedišča"
+msgstr "Podatkovni modeli"
 
 msgid "Comments"
 msgstr "Komentarji"
@@ -248,16 +248,16 @@ msgid "Error"
 msgstr "Napaka"
 
 msgid "Set as superuser"
-msgstr "Dodajte kot superuporabnik"
+msgstr "Dodajte kot superuporabnika"
 
 msgid "Remove as superuser"
-msgstr "Odstranite kot superuporabnik"
+msgstr "Odstranite kot superuporabnika"
 
 msgid "Confirm the change"
 msgstr "Potrdite spremembo"
 
 msgid "Set user as superuser?"
-msgstr "Želite nastaviti uporabnika kot superuporabnik?"
+msgstr "Želite nastaviti uporabnika kot superuporabnika?"
 
 msgid "Remove user as superuser?"
-msgstr "Želite odstraniti uporabnika kot superuporabnik?"
+msgstr "Želite odstraniti uporabnika kot superuporabnika?"
