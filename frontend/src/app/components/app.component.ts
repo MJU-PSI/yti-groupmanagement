@@ -12,9 +12,12 @@ import { LocationService } from '../services/location.service';
       <app-breadcrumb [location]="location"></app-breadcrumb>
       <router-outlet></router-outlet>
     </div>
-    <app-footer [title]="'Interoperability platform´s user right management' | translate" 
+    <app-footer [title]="'Interoperability platform´s user right management' | translate"
                 id="navigate_to_info_link"
-                (informationClick)="navigateToInformation()"></app-footer>
+                (informationClick)="navigateToInformation()"
+                (accessibilityClick)="navigateToAccessibility()"
+                (privacyClick)="navigateToPrivacy()">
+    </app-footer>
   `
 })
 export class AppComponent {
@@ -29,5 +32,13 @@ export class AppComponent {
 
   navigateToInformation() {
     this.router.navigate(['/information']);
+  }
+
+  navigateToAccessibility() {
+    this.router.navigate(['/accessibility']);
+  }
+
+  navigateToPrivacy() {
+    this.router.navigate(['/privacy']);
   }
 }

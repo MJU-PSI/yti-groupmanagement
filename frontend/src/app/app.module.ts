@@ -40,6 +40,8 @@ import fiCommonPo from 'raw-loader!po-loader?format=mf!../../node_modules/@mju-p
 import svCommonPo from 'raw-loader!po-loader?format=mf!../../node_modules/@mju-psi/yti-common-ui/po/sv.po';
 import enCommonPo from 'raw-loader!po-loader?format=mf!../../node_modules/@mju-psi/yti-common-ui/po/en.po';
 import slCommonPo from 'raw-loader!po-loader?format=mf!../../node_modules/@mju-psi/yti-common-ui/po/sl.po';
+import { AccessibilityPageComponent } from './components/accessibility/accessibility-page.component';
+import { PrivacyPageComponent } from './components/privacy/privacy-page.component';
 
 function removeEmptyValues(obj: {}) {
 
@@ -150,6 +152,8 @@ const appRoutes: Routes = [
   },
   { path: 'userDetails', component: UserDetailsComponent },
   { path: 'information', component: InformationAboutServiceComponent },
+  { path: 'accessibility', component: AccessibilityPageComponent },
+  { path: 'privacy', component: PrivacyPageComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
@@ -173,7 +177,9 @@ const appRoutes: Routes = [
     FormatDateTimePipe,
     InformationAboutServiceComponent,
     LogoComponent,
-    InlineClipboardComponent
+    InlineClipboardComponent,
+    AccessibilityPageComponent,
+    PrivacyPageComponent
   ],
   entryComponents: [
     SearchUserModalComponent,

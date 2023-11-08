@@ -57,6 +57,20 @@ export class LocationService implements OnDestroy {
     }]);
   }
 
+  atAccessibilityPage(): void {
+    this.changeLocation([{
+      localizationKey: 'Accessibility',
+      route: ['accessibility']
+    }]);
+  }
+
+  atPrivacyPage(): void {
+    this.changeLocation([{
+      localizationKey: 'Privacy and protection of personal data',
+      route: ['privacy']
+    }]);
+  }
+
   ngOnDestroy() {
     this.titleTranslationSubscription.unsubscribe();
   }
