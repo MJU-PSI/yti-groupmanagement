@@ -1,3 +1,25 @@
 <div class="content-box">
 
+  <ng-container *ngIf="currentLang === 'en'">
+    <h1>Semantic Interoperability Platform User Rights Management</h1>
+
+    <p>
+      The Semantic Interoperability Platform's User Rights Management tool is an application module that allows administrators to edit organization’s data and grant users access rights to content managed by the organization. There is no limit to the number of administrators. It is recommended that the organisation has at least two administrators.
+    </p>
+    <p>
+      Only users with administrative rights to the organization can log in to the User Rights Management module.
+    </p>
+  </ng-container>
+
+  <ng-container *ngIf="currentLang !== 'en'">
+    <h1>Upravljanje uporabniških pravic Platforme za semantično interoperabilnost</h1>
+
+    <p>
+      Upravljanje uporabniških pravic Platforme za semantično interoperabilnost je aplikacijski modul, preko katerega lahko skrbniki urejajo podatke organizacije in dodeljuje uporabnikom pravice dostopa do vsebin, ki jih organizacija upravlja. Število skrbnikov ni omejeno. Priporočljivo je imeti vsaj dva skrbnika v organizaciji.
+    </p>
+    <p>
+      V modul za upravljanje uporabniških pravic se lahko prijavijo le uporabniki, ki imajo skrbniške pravice organizacije.
+    </p>
+  </ng-container>
+
 </div>
